@@ -1,0 +1,53 @@
+/* CSS Document */
+div#items_left_menu{
+	font-size: 12px;
+	font-weight: normal;
+	padding-left: 30px;
+}
+div#items_left_menu ul{
+	margin: 0px;
+	padding-left: 15px;
+	padding-top:2px;
+	list-style-type: none;
+}
+div#items_left_menu ul.top_ul{
+	padding-left: 0px;
+}
+div#items_left_menu ul li{
+	padding-left:0px;
+	padding-top:2px;
+	padding-bottom:2px;
+}
+div#items_left_menu ul li.c_close{
+	background-image: url(tree/plus.jpg);
+	background-repeat: no-repeat;
+	background-position: left center;	
+}
+div#items_left_menu a{
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+}
+div#items_left_menu a.novisible{
+	color: #6DAD83;
+}
+div#items_left_menu a.novisible_admin{
+	color: #E8A79B;
+}
+div#items_left_menu a.novisible_useradmin{
+	color: #96E0ED;
+}
+div#items_left_menu a.novisible_orders{
+	color: #A40414;
+	background-color:#CCCCCC;
+}
+div#items_left_menu a.novisible_goo{
+	color: #A40414;
+	background-color:#9FDAF9;
+}
+/******************************/
+div#items_left_menu img{
+	border: 0px;
+	margin-top: -2px;
+	margin-right: 5px;
+}

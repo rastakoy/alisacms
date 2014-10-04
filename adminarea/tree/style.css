@@ -1,0 +1,43 @@
+div.td-tree-item{
+	height: 18px;
+	width: 100%;
+}
+td.td-tree-spacer{
+	height: 18px;
+	width: 12px;
+	float: left;
+}
+td.td-tree-content{
+	height: 18px;
+	float: left;
+	font-size: 11px;
+}
+td.td-tree-plus{
+	background-image: url(plus.jpg);
+	background-repeat: no-repeat;
+	float: left;
+	height: 18px;
+	width: 12px;
+}
+td.td-tree-minus{
+	background-image: url(minus.jpg);
+	background-repeat: no-repeat;
+	float: left;
+	height: 18px;
+	width: 12px;
+}
+img.tree-img{
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+img.tree-image{
+	margin-left: 10px;
+}
+td.td_treecontent{
+	padding-left: 3px; 
+	padding-top: 3px; 
+	padding-bottom: 3px;
+	font-size: 11;
+}
