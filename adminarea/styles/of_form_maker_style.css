@@ -1,0 +1,28 @@
+div.fm_panel{
+	background-color: #D4D0C8;
+	height: 35px;
+	padding-top: 5px;
+}
+div.fm_panel_group{
+	background-image: url(../images/of/fm_sep.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+	padding-right: 2px;
+	width:auto;
+	height: 30px;
+	float:left;
+}
+div.fm_panel_button{
+	float: left;
+	width: 25px;
+	margin-right: 2px;
+	margin-left: 2px;
+	width: 17px;
+	height:17px;
+	padding: 8px;
+}
+div.fm_panel_button:hover{
+	background-image: url(../images/of/fm_button_active.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}

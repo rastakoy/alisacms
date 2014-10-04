@@ -1,0 +1,23 @@
+.orderTab{
+	background-color: #E8E8E8;
+}
+
+.oActive{
+	background-color: #CCCCCC;
+	font-weight:bold;
+}
+.orderStatusTabActive{
+	background-color: #81F38C;
+	cursor:pointer;
+}
+.orderStatusTab{
+	cursor:pointer;
+}
+.orderStatusTab:hover{
+	background-color: #FFE8D9;	
+}
+.orderStatusTab a{
+	display:block;
+	height: 16px;
+	padding-top: 6px;
+}

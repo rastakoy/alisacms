@@ -1,0 +1,23 @@
+ul#files_items{
+	list-style-type: none;
+	margin-left: 0px;
+	padding: 0px;
+	
+}
+ul#files_items li{
+	padding-top: 20px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	width:100px;
+	height:65px;
+	float:left;
+	text-align: center;
+}
+ul#files_items li:hover{
+	background-color: #C9DDC8;
+}
+ul#files_items li.selected{
+	background-color: #FFCCCC;
+	margin: 1px;
+}

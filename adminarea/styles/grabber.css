@@ -1,0 +1,14 @@
+div#grabber_help{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #000000;
+	height: 50px;
+	padding-top: 10px;
+	color: #FFFFFF;
+	font-weight: normal;
+	padding-left: 12px;
+	position: fixed;
+	width: 600px;
+	left: 0px;
+	top: 0px;
+}

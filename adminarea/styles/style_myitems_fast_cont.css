@@ -1,0 +1,94 @@
+div#inc_tadiv_imgs{
+	float:right;
+	height:300px;
+	width: 140px;
+	border: 1px solid #ABC6DD;
+}
+div#inc_tadiv{
+	width:550px;
+	border: 1px solid #ABC6DD;
+	overflow: auto;	
+}
+a.inc_tadiv_saver_imgs{
+	display: block;
+	background-image: url(../images/green/myitemname_popup/fcont_bg.gif);
+	width: 100px;
+	height: 24px;
+	padding-top: 6px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #113AA6;
+	float: left;
+	margin-right: 15px;
+}
+a.inc_tadiv_saver_imgs:hover{
+	background-image: url(../images/green/myitemname_popup/fcont_bg_active.gif);
+}
+/*********************************************/
+div.inc_tavid_loadimgs{
+	background-image: url(../images/green/myitemname_popup/loadimagestocont.gif);
+	background-repeat: no-repeat;
+	background-position: center top;
+	height: 75px;
+	width: 100px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+div.fast_cont_upload_button{
+	width: 100px;
+	height: 75px;
+	background-image: url(../adminarea/images/green/myitemname_popup/loadimagestocont.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+div#fc_images_box{
+	height: 200px;
+	width: 100px;
+}
+div.div_fc_images_in_box{
+	background-color: #E5EFFD;
+	height: 75px;
+	width: 100px;
+	border: 1px solid #ABC6DD;
+	margin-bottom: 10px;
+}
+div#fc_maskcont{
+	background-color: #FFFFFF; /*#FF66CC; */
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	padding: 10px;
+	border: 1px solid #006600;
+	overflow: auto;
+	/*-moz-opacity: 0.5; /* код для движков Mozilla */
+	/*opacity:.50;  /*свойство из спецификации CSS3, которое поддерживается не всеми браузерами*/
+	/*filter: alpha(opacity=50); /* код для IE */
+}
+/*********************************************/
+div.fast_table_upload_button{
+	width: 100px;
+	height: 75px;
+	background-image: url(../images/green/myitemname_popup/loadfilescsv.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	cursor: pointer;
+}
+
+div.div_fast_csv_img_icon{
+	background-image: url(../images/green/myitemname_popup/csv_icon.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	height: 75px;
+	width: 100px;
+	cursor: pointer;
+}
+div.div_fast_csv_img_icon span{
+	display: block;
+	padding-top: 53px;
+	font-size: 9px;
+	white-space: pre;
+	text-align: center;
+	overflow: hidden;
+}

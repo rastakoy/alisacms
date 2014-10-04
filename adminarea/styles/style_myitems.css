@@ -1,0 +1,128 @@
+div.div_myitemname{
+	background-color: #FFF;
+	height: 36px;
+	padding-top: 2px;
+	font-weight: bold;
+	padding-left: 10px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #006600;
+	white-space: nowrap;
+	overflow:hidden;
+}
+div.div_myitemname_noshow{
+	background-color: #FFF;
+	height: 22px;
+	padding-top: 8px;
+	font-weight: bold;
+	padding-left: 10px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #006600;
+	white-space: nowrap;
+	overflow:hidden;
+	color: #666666;
+}
+div#show_myitemblock_bg{
+	background-color: #666666;
+	position: absolute;
+	height: 100px;
+	width: 100px;
+	left: 0px;
+	top: 0px;
+	-moz-opacity: 0.8; /* код для движков Mozilla */
+	opacity:.80;  /*свойство из спецификации CSS3, которое поддерживается не всеми браузерами*/
+	filter: alpha(opacity=80); /* код для IE */
+}
+div#show_myitemblock_close{
+	background-color: #666666;
+	position: absolute;
+	height: 17px;
+	width: 17px;
+	background-image: url(../images/green/icon_close_ucw.gif);
+	cursor:pointer;
+	left: 0px;
+	top: 0px;
+	-moz-opacity: 0.8; /* код для движков Mozilla */
+	opacity:.80;  /*свойство из спецификации CSS3, которое поддерживается не всеми браузерами*/
+	filter: alpha(opacity=80); /* код для IE */
+}
+div#show_myitemblock_cont{
+	background-color: #FFFFFF;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	padding: 10px;
+	border: 1px solid #006600;
+	overflow: auto;
+}
+div#myitems_sortable{
+	border: 4px solid #A9C9A7;
+}
+span.item_fastpricedigit{
+	background-color: #FFCC99;
+	cursor: pointer;
+}
+input.item_fastpricedigit_input{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	height: 16px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;	
+}
+input#fast_search_items{
+	border: 4px solid #A9C9A7;
+	width: 400px;
+	height: 30px;
+	margin-left: 0px;
+	margin-bottom: 7px;
+	margin-right: 10px;
+	padding-left: 5px;
+}
+input#fast_search_users{
+	border: 4px solid #A9C9A7;
+	width: 400px;
+	height: 30px;
+	margin-left: 0px;
+	margin-bottom: 7px;
+	margin-right: 10px;
+	padding-left: 5px;
+}
+input#fast_search_email{
+	border: 4px solid #A9C9A7;
+	width: 400px;
+	height: 30px;
+	margin-left: 0px;
+	margin-bottom: 7px;
+	margin-right: 10px;
+	padding-left: 5px;
+}
+div.items_nodatafield{
+	position: absolute;
+	width: 200px;
+	
+}
+div.items_nodatafield .ndf_span_1{
+	display: block;
+	background-color: #FFFFCC;
+	border: 1px solid #666666;
+	box-shadow: 3px 3px 2px 1px grey;
+	border-radius: 5px;
+	font-weight: normal;
+	padding: 10px;
+	line-height: 16px;
+	overflow: hidden;
+}
+div.items_nodatafield .ndf_span_2{
+	display: block;
+	height: 10px;
+	background-image: url(../images/green/myitemname_popup/warning_bg.gif);
+	background-repeat: no-repeat;
+	background-position: center top;
+	position:relative;
+	padding: 0px;
+	margin: 0px;
+	margin-top: -1px;
+}

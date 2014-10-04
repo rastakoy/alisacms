@@ -1,0 +1,39 @@
+.user_discount{
+	color: #003399;
+	text-decoration: underline;
+	cursor:pointer;
+	font-weight:bold;
+}
+.ud_input{
+	width:50px;
+	height:25px;	
+}
+/***********************/
+.user_fio{
+	line-height: 14px;
+}
+.ufio_input{
+	width:250px;
+	height:14px;
+	font-size: 11px;
+}
+/***********************/
+.user_email{
+	line-height: 14px;
+}
+.uemail_input{
+	width:250px;
+	height:14px;
+	font-size: 11px;
+}
+/***********************/
+.user_pass{
+	color: #003399;
+	text-decoration: underline;
+	cursor:pointer;
+	font-weight:bold;
+}
+.upass_input{
+	width:50px;
+	height:25px;	
+}

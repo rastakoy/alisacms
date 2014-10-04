@@ -1,0 +1,13 @@
+div#of_title{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	background-color: #8E998E;
+	background-image: url(../images/of/title.jpg);
+	background-repeat: repeat-y;
+	background-position: left top;
+	height: 25px;
+	padding-top: 10px;
+	color: #FFFFFF;
+	font-weight: bold;
+	padding-left: 14px;
+}

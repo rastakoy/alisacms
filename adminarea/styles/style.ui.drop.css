@@ -1,0 +1,28 @@
+div#trash{
+	background-color: #FF9999;
+	position: absolute;
+	height: 100px;
+	width: 100px;
+	left: 100px;
+	top: 300px;
+	z-index:1000;
+}
+div#trash.drop_in_trash{
+	
+}
+/**************************/
+div#mydrop{
+	background-color: #FF9999;
+	position: absolute;
+	height: 100px;
+	width: 100px;
+	left: 250px;
+	top: 300px;
+	z-index:1000;
+}
+div#mydrop span{
+	background-color: #FF9933;
+	display: block;
+	height: 30px;
+	width: 50px;	
+}

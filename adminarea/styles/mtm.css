@@ -1,0 +1,33 @@
+span.mtm_span_1{
+	display: block;
+	float: left;
+	height: 20px;
+	width: 100px;
+	border: 1px solid #009933;	
+	margin-right: 10px;
+	cursor: pointer;
+}
+span.mtm_span_1:hover{
+	background-color: #D9FFE6;	
+}
+div.dmtm_div_1{
+	display: block;
+	float: left;
+	height: 20px;
+	width: 110px;
+	margin-bottom: 10px;
+}
+div.dmtm_div_2{
+	display: block;
+	float: left;
+	width: 210px;
+	position:relative;
+	height: 450px;
+	border: 1px solid #000000;
+	background-color: #FFCCCC;
+}
+span.span_mtm_sub{
+	float: left;
+	height: 20px;
+	width: 70px;	
+}

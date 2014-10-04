@@ -1,0 +1,23 @@
+div#mtm_v2_all{
+	/*background-color: #00CCCC;*/
+	margin-left: 0px;
+}
+div.mtm_v2_level{
+	/*background-color: #CC6633;*/
+	overflow: auto;
+	width: 380px;
+	min-height: 300px;
+	float:left;
+	position:relative;
+	left: 0px;
+	padding: 10px;
+	height: 300px;
+}
+span.span_mtm{
+	display:block;
+	float: left;
+	background-color:#00CC99;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	cursor: pointer;
+}

@@ -1,0 +1,33 @@
+div.div_myitemname_popup{
+	width: 500px;
+	padding-bottom: 6px;
+	position: absolute;
+	left: 360px;
+	top: 93px;
+	background-image: url(../images/green/myitemname_popup/subarrow.gif);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	height: 52px;
+}
+div.div_myitemname_popup_sub{
+	padding-top: 5px;
+	padding-left: 5px;
+	height: 45px;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-top-color: #006600;
+	border-right-color: #006600;
+	border-left-color: #006600;
+	background-color:#FFFFFF;
+	
+}
+div.div_myitemname_texta_sub{
+	height: 40px;
+	width: 280px;
+	font-size: 9px;
+	overflow: hidden;
+}

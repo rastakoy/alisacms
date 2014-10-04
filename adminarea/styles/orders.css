@@ -1,0 +1,18 @@
+.ordesr_sendorder{
+	width: 80px;
+	background-color: #4A7450;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.ordesr_sendorder_sended{
+	background-color: #B9C6B7;
+	width: 80px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-decoration: underline;
+}

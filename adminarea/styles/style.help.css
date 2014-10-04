@@ -1,0 +1,54 @@
+div#helptitles{
+	border: 4px solid #A9C9A7;
+	background-color: #FFFFFF;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	width: 300px;
+	z-index: 10000;
+	box-shadow: 3px 3px 2px 1px #333333;
+}
+div#helptitles_title{
+	background-color: #CCFF33;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 14px;
+	cursor:move;
+	font-weight: bold;
+}
+div#helptitles_cont{
+	padding: 10px;
+	height: 350px;
+	overflow: auto;
+	color: #333333;
+}
+div#helptitles_cont ul{
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+	padding-left: 15px;
+}
+div#helptitles_cont ul li{
+	line-height: 16px;
+}
+/*******************************/
+div#helpcontent{
+	border: 4px solid #A9C9A7;
+	background-color: #FFFFFF;
+	box-shadow: 3px 3px 2px 1px #333333;
+}
+div#helpcontent_title{
+	background-color: #A9C9A7;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 14px;
+	font-weight: bold;
+}
+div#helpcontent_cont{
+	padding: 10px;
+	color: #333333;
+}
