@@ -1,4 +1,5 @@
 <?
+$test=0;
 $online=true;
 
 if ($online){
