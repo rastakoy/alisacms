@@ -31,13 +31,13 @@ function get_template(tid){
 //******************************
 function save_code(){
 	//alert(create_code());
-	alert(create_code());
+	//alert(create_code());
 	$.ajax({
 		type: "POST",
 		url: "__ajax_of_form_maker.php",
 		data: "paction=save_template&tid="+document.getElementById("folder_item_type").value+"&code="+create_code(),
 		success: function(html) {
-			alert(html);
+			//alert(html);
 			get_template(document.getElementById("folder_item_type").value);
 		}
 	});
