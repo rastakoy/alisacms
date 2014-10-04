@@ -1,0 +1,19 @@
+<?
+$txt = "img.height = 300
+img.width = 100
+car.price = 340
+car = mazda
+car.mark = rx8
+car.driver.detals.material = ferrum
+car.driver.detals = metal";
+
+function convert_str_to_associative_array(  $str, $val_container  ){
+	$rmass = false;
+	preg_match_all(  "/^.*=|\n.*=/", $str, $keys);
+	preg_match_all(  "/=.*\n|=.*$/", $str, $vals);
+	foreach(  $keys[0] as $key=>$val  )
+		eval("\$rmass"."[\"".implode("\"][\"",explode(".",trim(preg_replace("/=/","",$val))))."\"]"."[\"$val_container\"]=".trim(preg_replace("/=/","",$vals[0][$key])).";");
+	return $rmass;
+}
+echo "<pre>"; print_r(  convert_str_to_associative_array(  $txt, "value"  )  ); echo "</pre>";
+?>
