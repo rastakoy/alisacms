@@ -1,0 +1,29 @@
+.qqpp-uploader{
+	background-color: none;
+	background-image: url(../images/green/myitemname_popup/uploadmultiprice.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	height: 32px;
+	width: 32px;
+	padding:0;
+	margin:2px;
+}
+.qqpp-upload-button-hover{
+	background-color: none;
+	background-image: url(../images/green/myitemname_popup/uploadmultiprice_active.gif);
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	height: 32px;
+	width: 32px;
+	padding:0;
+	margin:0;
+}
+.qqpp-upload-button{
+	height: 32px;
+	width: 32px;
+}
+.qq-upload-drop-area{
+	border: 1px dashed #FF9966;
+	height: 22px;
+	background-color:#00FFFF;
+}
