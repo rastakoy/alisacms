@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+   <link rel="Stylesheet" type="text/css" href="css/jqcp.css" />
+   <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+   <script type="text/javascript" src="js/jquery.jqcp.min.js"></script>
+</head>
+<body>
+
+<div id="colorbox">
+<table>
+   <tr>
+      <td colspan="3">
+         H:<input type="text" id="jqcp_h" size="3" value="0">
+         S:<input type="text" id="jqcp_s" size="3" value="0">
+         L:<input type="text" id="jqcp_l" size="3" value="0">
+         R:<input type="text" id="jqcp_r" size="3" value="255">
+         G:<input type="text" id="jqcp_g" size="3" value="255">
+         B:<input type="text" id="jqcp_b" size="3" value="255">
+         <input type="text" id="color_value" class="jqcp_value" size="8" value="#FFFFFF">
+      </td>
+   </tr>
+   <tr>
+      <td><div id="color_picker" style="display:;"></div></td>
+   </tr>
+</table>
+</div>
+
+<script>
+jQuery(document).ready(function(){
+   $("#color_picker").jqcp();
+   $("#color_value").jqcp_setObject();
+   jQuery.jQCP.setColor("color_value","#5EE9F4");
+});
+</script>
+
+</body>
+</html>
