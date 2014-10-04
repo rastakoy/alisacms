@@ -1,13 +1,59 @@
 //var __ajax_url = "__ajax_of_form_maker.php";
 var delete_field = -1;
 //******************************
+function __aofm_removeEvent(prmKey){
+	var str = "eventArray_"+prmKey+"['"+(document.getElementById("5_prm_"+prmKey).value)+"']";
+	eval("delete "+str);
+	document.getElementById("6_prm_"+prmKey).style.display = "none";
+	document.getElementById("off_prm_"+prmKey).style.display = "none";
+}
+//******************************
+function __aofm_setTextEvent(obj){
+	prmKey = obj.id.replace(/^[0-9]{1,3}_prm_/, "");
+	prm = obj.id.replace(/[0-9]{1,3}$/, "");
+	if(obj.value!=""){
+		objOff = document.getElementById("off_prm_"+prmKey);
+		objOff.style.display = "";
+		objOff.onclick = function(){
+			__aofm_removeEvent(prmKey);
+		}
+		var str = "eventArray_"+prmKey+"['"+(document.getElementById("5_prm_"+prmKey).value)+"'] = '"+(obj.value)+"'";
+		eval(str);
+	}else{
+		document.getElementById("off_prm_"+prmKey).style.display = "none";
+		__aofm_removeEvent(prmKey);
+	}
+}
+//******************************
+function __aofm_getTextEvent(obj){
+	prmKey = obj.id.replace(/^[0-9]{1,3}_prm_/, "");
+	prm = obj.id.replace(/[0-9]{1,3}$/, "");
+	//alert(prmKey+"::"+prm);
+	if(eval("eventArray_"+prmKey+"['"+obj.value+"']")){
+		document.getElementById("6_prm_"+prmKey).value = eval("eventArray_"+prmKey+"['"+obj.value+"']");
+		objOff = document.getElementById("off_prm_"+prmKey);
+		objOff.style.display = "";
+		objOff.onclick = function(){
+			__aofm_removeEvent(prmKey);
+		}
+	}else{
+		document.getElementById("6_prm_"+prmKey).value = "";
+		document.getElementById("off_prm_"+prmKey).style.display = "none";
+	}
+	if(obj.value!=""){
+		document.getElementById("6_prm_"+prmKey).style.display = "";
+	}else{
+		document.getElementById("6_prm_"+prmKey).style.display = "none";
+	}
+}
+//******************************
 function get_template(tid){
 	$.ajax({
 		type: "POST",
 		url: "__ajax_of_form_maker.php",
 		data: "paction=get_template&tid="+tid,
 		success: function(html) {
-			alert(html);
+			//alert(html);
 			$("#tmp_content").empty();
 			$("#tmp_content").append(html);
 			$( "#myitems_sortable" ).sortable();
@@ -64,9 +110,24 @@ function create_code(){
 			}
 			//***********************
 			if($( "#0_"+ids[i] ).val()=="inputtext"){
-				if($( "#5_"+ids[i] ).val()!=""){
-					ret += "==="+$( "#5_"+ids[i] ).val();
+				var prmKey = ids[i];
+				prmKey = prmKey.replace(/prm_/, "");
+				var prmArray = eval("eventArray_"+prmKey);
+				var retPrm = "";
+				for(var j in prmArray){
+					if(prmArray[j]){
+						retPrm += "===";
+						break;
+					}
 				}
+				for(var j in prmArray){
+					if(prmArray[j]){
+						retPrm += j+"="+prmArray[j]+";";
+					}
+				}
+				retPrm = retPrm.replace(/;$/, "");
+				//alert(retPrm);
+				ret += retPrm;
 			}
 			//***********************
 			if($( "#0_"+ids[i] ).val()=="selectfromitems"){

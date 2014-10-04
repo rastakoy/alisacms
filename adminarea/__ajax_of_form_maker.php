@@ -142,7 +142,36 @@ if($paction=="get_template"){
 								echo " <input id=\"3_prm_$key\" type=\"text\" style=\"width:150px;\" value='$vmass[4]' / > ";
 								//******
 								if($vmass[0] == "inputtext"){
-									echo " onChange <input id=\"5_prm_$key\" type=\"text\" value='$vmass[5]'  />";
+									$eventArray = explode(";", $vmass[5]);
+									$aEventArray = array();
+									foreach($eventArray as $eventVal){
+										$eventVal = explode("=", $eventVal);
+										$aEventArray[$eventVal[0]] = $eventVal[1];
+									}
+									$eventArray = $aEventArray;
+									echo " <select id=\"5_prm_$key\"  onChange=\"__aofm_getTextEvent(this)\" >";
+										echo "<option value=\"\"></option>";
+										echo "<option value=\"onChange\">onChange</option>";
+										echo "<option value=\"onKeyUp\">onKeyUp</option>";
+										echo "<option value=\"onKeyDown\">onKeyDown</option>";
+										echo "<option value=\"onFocus\">onFocus</option>";
+										//foreach($eventArray as $eventKey=>$eventVal){
+										//	echo "<option value=\"$eventKey\">$eventKey</option>";
+										//}
+										//echo "<option value=\"onKeyUp\">onChange</option>";
+										//echo "<option value=\"onKeyDown\">onChange</option>";
+									echo "</select>";
+									//print_r($eventArray);
+									echo "<script>\n";
+										echo "var eventArray_$key = {};\n";
+										foreach($eventArray as $eventKey=>$eventVal){
+											echo "eventArray_".$key."['$eventKey']='$eventVal';\n";
+										}
+										//echo "alert(eventArray_$key+'eventArray_$key');\n";
+									echo "</script>\n";
+									echo "&nbsp;&nbsp;&nbsp;<input id=\"6_prm_$key\" type=\"text\" style=\"width:150px;\" value='$vmass[6]'  ";
+									echo " onKeyUp=\"__aofm_setTextEvent(this)\" style=\"display:none;\" / >  ";
+									echo "<img src=\"images/green/icons/delete.gif\" align=\"absmiddle\" id=\"off_prm_$key\" style=\"display:none;\">";
 								}
 								//echo "<pre>"; print_r($vmass); echo "</pre>";
 								//******
