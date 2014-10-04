@@ -108,21 +108,26 @@ function __ff_create_inputcheckbox( $mass, $name, $postname, $comm="", $attrs=""
 }
 
 function __ff_create_inputtext( $mass, $name, $postname, $comm="", $attrs="", $events=false ){
+	//echo $events;
+	$events = explode(";", $events);
+	$aEventArray = array();
+	if( is_array($events) && count($events) > 0 ) {
+		foreach($events as $eventVal){
+			$eventVal = explode("=", $eventVal);
+			$aEventArray[$eventVal[0]] = $eventVal[1];
+		}
+	}
+	$events = $aEventArray;
+	//*************************
 	$ret  = "\n<tr>";
 	$ret .= "<td width=\"200\" height=\"30\">$comm</td>";
 	//echo "onChange=$onChange";
 	$value = preg_replace('/"/', "&quote;", $mass[$name]);
 	$value = preg_replace("/'/", "&rsquo;", $mass[$name]);
 	//$value = preg_replace("/'/", "&rsquo;", $mass[$name]);
-	$ret .= "<td><input $attrs name=\"$postname\" type=\"text\" id=\"$postname\" value='".$value."' ";
-	$events = explode(";", $events);
-	$aEventArray = array();
-	foreach($events as $eventVal){
-		$eventVal = explode("=", $eventVal);
-		$aEventArray[$eventVal[0]] = $eventVal[1];
-	}
-	$events = $aEventArray;
-	if( count($events) > 0 ) {
+	$ret .= "<td>";
+	$ret .= "<input $attrs name=\"$postname\" type=\"text\" id=\"$postname\" value='".$value."' ";
+	if( is_array($events) && count($events) > 0 ) {
 		foreach($events as $key=>$val){
 			$ret .= " $key=\"$val\" ";
 		}

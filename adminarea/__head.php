@@ -74,6 +74,7 @@
 <link href="styles/admin_orders.css" rel="stylesheet" type="text/css" />
 
 <script src="js/semp.js"></script>
+<script src="js/fastinfo.js"></script>
 
 <link href="styles/style_myitems.css" rel="stylesheet" type="text/css" />
 <link href="styles/style.help.css" rel="stylesheet" type="text/css" />
