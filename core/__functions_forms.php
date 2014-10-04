@@ -107,13 +107,16 @@ function __ff_create_inputcheckbox( $mass, $name, $postname, $comm="", $attrs=""
 	return $ret;
 }
 
-function __ff_create_inputtext( $mass, $name, $postname, $comm="", $attrs="" ){
+function __ff_create_inputtext( $mass, $name, $postname, $comm="", $attrs="", $onChange=false ){
 	$ret  = "\n<tr>";
 	$ret .= "<td width=\"200\" height=\"30\">$comm</td>";
+	//echo "onChange=$onChange";
 	$value = preg_replace('/"/', "&quote;", $mass[$name]);
 	$value = preg_replace("/'/", "&rsquo;", $mass[$name]);
 	//$value = preg_replace("/'/", "&rsquo;", $mass[$name]);
-	$ret .= "<td><input $attrs name=\"$postname\" type=\"text\" id=\"$postname\" value='".$value."' ></td>";
+	$ret .= "<td><input $attrs name=\"$postname\" type=\"text\" id=\"$postname\" value='".$value."' ";
+	if($onChange) $ret .= " onChange=\"$onChange\" ";
+	$ret .= "  ></td>";
 	$ret .= "</tr>\n";
 	return $ret;
 }
