@@ -75,6 +75,8 @@
 
 <script src="js/semp.js"></script>
 <script src="js/fastinfo.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&language=ru"></script>
+<script src="js/google.city.autocomplete.js"></script>
 
 <link href="styles/style_myitems.css" rel="stylesheet" type="text/css" />
 <link href="styles/style.help.css" rel="stylesheet" type="text/css" />

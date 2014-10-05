@@ -107,8 +107,10 @@ function __ff_create_inputcheckbox( $mass, $name, $postname, $comm="", $attrs=""
 	return $ret;
 }
 
+$show_once = true;
 function __ff_create_inputtext( $mass, $name, $postname, $comm="", $attrs="", $events=false ){
 	//echo $events;
+	global $show_once;
 	$events = explode(";", $events);
 	$aEventArray = array();
 	if( is_array($events) && count($events) > 0 ) {
@@ -132,7 +134,13 @@ function __ff_create_inputtext( $mass, $name, $postname, $comm="", $attrs="", $e
 			$ret .= " $key=\"$val\" ";
 		}
 	}
-	$ret .= "  ></td>";
+	$ret .= "  >";
+	if($show_once){
+		//$ret .= "<input id=\"_formid_city\" name=\"city\" onchange=\"unverifyCity()\" value=\"\" type=\"text\" placeholder=\"Город, Область\">";
+		//$ret .= "<input id=\"_formid_verified_city\" name=\"verified_city\" value=\"0\" type=\"hidden\">";
+		$show_once = false;
+	}
+	$ret .= "</td>";
 	$ret .= "</tr>\n";
 	return $ret;
 }
