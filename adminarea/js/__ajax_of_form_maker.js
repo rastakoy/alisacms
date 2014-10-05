@@ -112,22 +112,25 @@ function create_code(){
 			if($( "#0_"+ids[i] ).val()=="inputtext"){
 				var prmKey = ids[i];
 				prmKey = prmKey.replace(/prm_/, "");
-				var prmArray = eval("eventArray_"+prmKey);
-				var retPrm = "";
-				for(var j in prmArray){
-					if(prmArray[j]){
-						retPrm += "===";
-						break;
+				//alert(eval("typeof  eventArray_"+prmKey));
+				if(eval("typeof eventArray_"+prmKey+"!='undefined'")){
+					var prmArray = eval("eventArray_"+prmKey);
+					var retPrm = "";
+					for(var j in prmArray){
+						if(prmArray[j]){
+							retPrm += "===";
+							break;
+						}
 					}
-				}
-				for(var j in prmArray){
-					if(prmArray[j]){
-						retPrm += j+"="+prmArray[j]+";";
+					for(var j in prmArray){
+						if(prmArray[j]){
+							retPrm += j+"="+prmArray[j]+";";
+						}
 					}
+					retPrm = retPrm.replace(/;$/, "");
+					//alert(retPrm);
+					ret += retPrm;
 				}
-				retPrm = retPrm.replace(/;$/, "");
-				//alert(retPrm);
-				ret += retPrm;
 			}
 			//***********************
 			if($( "#0_"+ids[i] ).val()=="selectfromitems"){
@@ -158,17 +161,17 @@ function create_code(){
 }
 //******************************
 function get_template_fields(tval){
-	//alert("ok "+tval);
-	if(tval == "inputtext"){
-		$.ajax({
-		type: "POST",
-		url: "__ajax_of_form_maker.php",
-		data: "paction=gettemplatefields&tid="+document.getElementById("folder_item_type").value+"&code="+create_code(),
-		success: function(html) {
-			alert(html);
-		}
-	});
-	}
+	alert("ok "+tval);
+	//if(tval == "inputtext"){
+	//	$.ajax({
+	//	type: "POST",
+	//	url: "__ajax_of_form_maker.php",
+	//	data: "paction=gettemplatefields&tid="+document.getElementById("folder_item_type").value+"&code="+create_code(),
+	//	success: function(html) {
+	//		alert(html);
+	//	}
+	//});
+	//}
 }
 //******************************
 function delete_fm_field(fid){
