@@ -237,6 +237,7 @@ function __fp_is_create_files($db_table, $id, $name) {
 //***************************************************
 function __fp_create_folder_way($table, $id, $show=0){
 	$rv = "";
+	if(!$id) return "";
 	$mass = __fp_way_to_item($table, $id, $show);
 	//print_r($mass);
 	//echo "fas=".$mass[count($mass)-1]["fassoc"];
@@ -341,6 +342,7 @@ function __fp_get_id_from_way($way, $table="items", $parent=0, $level=0){
 }
 //*******************************************
 function __fp_way_to_item($table, $id, $self=false){
+	if(!$id) return "";
 	$query = "select * from $table where id=$id";
 	//echo $query;
 	$resp = mysql_query($query);
@@ -397,6 +399,7 @@ function __fp_get_row_rtf_from_folder_id($id, $argvs=false){
 }
 //*******************************************
 function __fp_test_item_for_show($id){
+	if(!$id) return false;
 	$query = "select * from items where id=$id  ";
 	$resp = mysql_query($query);
 	$row = mysql_fetch_assoc($resp);

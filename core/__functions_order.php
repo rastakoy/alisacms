@@ -45,7 +45,7 @@ function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 			$ret .= "<td width=\"130\" bgcolor=\"#FFFFFF\" align=\"center\">&nbsp;</td>";
 			$ret .= "<td width=\"320\" bgcolor=\"#FFFFFF\">Название</td>";
 			$ret .= "<td width=\"70\" align=\"center\" bgcolor=\"#FFFFFF\">Цена</td>";
-			$ret .= "<td width=\"70\" align=\"center\" bgcolor=\"#FFFFFF\">Кол-во</td>";
+			$ret .= "<td width=\"80\" align=\"center\" bgcolor=\"#FFFFFF\">Кол-во</td>";
 			$ret .= "<td width=\"70\" align=\"center\" bgcolor=\"#FFFFFF\">Скидка</td>";
 			$ret .= "<td width=\"70\" align=\"center\" bgcolor=\"#FFFFFF\">Цена со скидкой</td>";
 			$ret .= "<td width=\"100\" align=\"center\" bgcolor=\"#FFFFFF\">Сумма</td>";
@@ -86,13 +86,13 @@ function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 			//******************************************
 			$ret .= "</td>";
 			$ret .= "<td width=\"70\" align=\"center\" bgcolor=\"#FFFFFF\" id=\"price_$row[id]\">$row[price]</td>";
-			$ret .= "<td width=\"70\" align=\"center\" bgcolor=\"#FFFFFF\">";
+			$ret .= "<td width=\"80\" align=\"center\" bgcolor=\"#FFFFFF\">";
 			if(!$toWord){
-				$ret .= "<input type=\"number\" style=\"width:50px;height:30px;\" ";
+				$ret .= "<input type=\"number\" style=\"width:70px;height:30px;\" ";
 				if($order["orderStatus"]=="0")
-					$ret .= " min=\"1\" max=\"$item[kolvov]\"  ";
+					$ret .= " min=\".05\" step=\".05\" max=\"$item[kolvov]\"  ";
 				else
-					$ret .= " min=\"1\" max=\"".($item["kolvov"]+$row["qtty"])."\"  ";
+					$ret .= " min=\".05\" step=\".05\" max=\"".($item["kolvov"]+$row["qtty"])."\"  ";
 				$ret .= " id=\"qtty_$row[id]\" value=\"$row[qtty]\" onChange=\"__ao_changeQtty(this)\" ></td>";
 			} else {
 				$ret .= "$row[qtty]</td>";
@@ -193,7 +193,7 @@ function __fo_getSborkaJSON($id){
 	$ret .= "	\"sum\":\"$row[sum] грн.\",\n";
 	$resp = mysql_query("select * from items where id=$row[itemId]  ");
 	$item = mysql_fetch_assoc($resp);
-	$ret .= "	\"qttyMax\":\"$item[kolvov]\",\n";
+	$ret .= "	\"qttyMax\":\"".round($item["kolvov"], 2)."\",\n";
 	$allSum = __fo_getAllSum($row["orderId"]);
 	$ret .= "	\"allOrderSum\":\"$allSum грн.\",\n";
 	$discount = __fo_getUserDiscount($row["userId"], $row["orderId"]);
@@ -206,17 +206,23 @@ function __fo_getSborkaJSON($id){
 	$respOrder = mysql_query($queryOrder);
 	$rowOrder = mysql_fetch_assoc($respOrder);
 	//************
+	//echo 
 	if($rowOrder["orderStatus"]=="0")
-		$ret .= "	\"onStore\":\"".($rowItem["kolvov"]-$row["qtty"])."\",\n";
+		$ret .= "	\"onStore\":\"".(round($rowItem["kolvov"], 2)-$row["qtty"])."\",\n";
 	else
-		$ret .= "	\"onStore\":\"".($rowItem["kolvov"]+$row["qtty"])."\",\n";
-	$ret .= "}";
+		$ret .= "	\"onStore\":\"".(round($rowItem["kolvov"], 2)+$row["qtty"])."\",\n";
 	//************
 	$resp = mysql_query(" update orders set orderSum=$itogo, orderDiscount=$discount where id=$row[orderId] ");
 	//************
 	$step = "";
 	$type = get_item_type($rowItem["parent"]);
-	$ret .= "	\"type\":\"$type\",\n";
+	$step = __ff_findValuesFromKey($rowItem["parent"], "kolvo", "step");
+	$ret .= "	\"step\":\"$step\",\n";
+	$ret .= "	\"min\":\"$step\",\n";
+	
+	//************
+	$ret = preg_replace("/,$/", "", $ret);
+	$ret .= "}";
 	//************
 	return $ret;
 }
