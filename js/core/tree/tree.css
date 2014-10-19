@@ -1,0 +1,84 @@
+[class^="tree-icon-"],
+[class*=" tree-icon-"] {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url(tree_icons.png);
+  background-repeat: no-repeat;
+  float:left;
+}
+
+.treeDef{
+	min-height: 16px;
+	padding: 0;
+	margin: 0;
+	font-size: 11px;
+	line-height: normal;
+}
+.tree-content{
+	margin-left: 3px;
+}
+.tree-add{
+	margin-left: 3px;
+	margin-bottom: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	background-color: #FFFFFF;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #333333;
+	border-right-color: #CCCCCC;
+	border-bottom-color: #CCCCCC;
+	border-left-color: #333333;
+	width: 100px;
+	height: 14px;
+	font-size: 11px;
+	color: #666666;
+}
+.tree-add:focus{
+	color:#000000;
+}
+/************************************/
+.tree-icon-l-{
+	background-position: -16px 0;
+}
+.tree-icon-v{
+	background-position: -48px 0;
+	cursor:pointer;
+}
+.tree-icon-v-active{
+	background-position: -48px -16px;
+	cursor:pointer;
+}
+.tree-icon-plus{
+	background-position: 0 0;
+	cursor:pointer;
+}
+.tree-icon-minus{
+	background-position: 0 -16px;
+	cursor:pointer;
+}
+.tree-icon-L{
+	background-position: -64px 0;
+}
+.tree-icon-I{
+	background-position: -32px 0;
+}
+/************************************/
+.treeDef a{
+	color: #002491;
+}
+.treeDef a:hover{
+	color: #0443FF;
+	text-decoration:underline;
+}

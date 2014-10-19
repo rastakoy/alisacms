@@ -1,0 +1,16 @@
+.__aPreloader-class{
+	background-image: url(493.GIF);
+	background-repeat: no-repeat;
+	background-position: center center;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	background-color: #333333;
+	margin: 0px;
+	padding: 0px;
+	-moz-opacity: 0.8; /* код для движков Mozilla */
+	opacity:.80;  /*свойство из спецификации CSS3, которое поддерживается не всеми браузерами*/
+	filter: alpha(opacity=80); /* код для IE */
+}

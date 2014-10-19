@@ -1,0 +1,18 @@
+#autocmplField{
+	background-color:#E8E8E8;
+	position:absolute;
+	padding:5px;
+	max-height:200px;
+	overflow:auto;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+#autocmplField a{
+	display:block;
+	padding-top:3px;
+	padding-bottom:3px;
+	line-height:14px;
+	color: #666666;
+}
+#autocmplField a.active{
+	background-color:#D3D3D3;
+}

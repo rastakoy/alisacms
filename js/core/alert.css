@@ -1,0 +1,61 @@
+#aAlertBgObject{
+	background-color: #333333;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;	
+	-moz-opacity: 0.8; /* код для движков Mozilla */
+	opacity:.80;  /*свойство из спецификации CSS3, которое поддерживается не всеми браузерами*/
+	filter: alpha(opacity=80); /* код для IE */
+}
+#aAlertBoxObject{
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	position: fixed;
+	background-color: #CCCCCC;
+	border: 1px solid #000000;	
+	min-height:140px;
+	min-width: 360px;
+	text-align:center;
+	padding-bottom: 15px;
+}
+#aAlertBoxObject.aAlertBoxObject-warning{
+	background-image: url(alert_warning.png);
+	background-repeat: no-repeat;
+	background-position: 20px center;	
+}
+#aAlertBoxObject-title{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #000000;
+	margin-top: 10px;
+}
+#aAlertBoxObject-content{
+	min-height:70px;
+	margin-top: 20px;
+	padding-left: 120px;
+	text-align: left;
+	width: 200px;
+}
+#aAlertBoxObject-button{
+	display: block;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	width: 100px;
+	height: 22px;
+	padding-top: 8px;
+	background-color: #EFEFEF;
+	border: 1px solid #666666;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	color: #333333;
+	cursor:pointer;
+}
+#aAlertBoxObject-button:hover{
+	background-color: #FFFFFF;
+}

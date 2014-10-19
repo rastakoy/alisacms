@@ -1,0 +1,8 @@
+*:focus {outline: none;}
+.aForm input{
+	outline: none;
+	transition: all 0.35s ease;
+}
+.aForm input:focus{
+	border: 2px solid #3366CC;	
+}

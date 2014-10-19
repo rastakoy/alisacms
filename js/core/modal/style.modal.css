@@ -1,0 +1,17 @@
+.__modal_background{
+	background-color: #666666;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	left: 0px;
+	top: 0px;	
+	-moz-opacity: 0.8;
+	opacity:.80;
+	filter: alpha(opacity=80);
+}
+.__modal_window{
+	background-color: #FFFFFF;
+	width: 500px;
+	height: 300px;
+	position: fixed;
+}

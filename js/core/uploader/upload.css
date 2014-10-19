@@ -1,0 +1,20 @@
+.qq-uploader{
+	background-image: url(upload_icon.png);
+	background-repeat: no-repeat;
+	background-position: 1px 3px;
+	height: 22px;
+	overflow: hidden;
+}
+.qq-uploader:hover{
+	background-color:#00FF33;
+}
+.qq-upload-button{
+	padding-left: 30px;
+	padding-top: 4px;
+	height: 30px;
+}
+.qq-upload-drop-area{
+	border: 1px dashed #FF9966;
+	height: 22px;
+	background-color:#00FFFF;
+}

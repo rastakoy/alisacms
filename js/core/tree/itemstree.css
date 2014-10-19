@@ -1,0 +1,42 @@
+.aui_tree_ul{
+	margin: 0px;
+	padding-left: 15px;
+	padding-top:2px;
+	list-style-type: none;
+}
+.aui_tree_ul ul{
+	margin: 0px;
+	padding-left: 15px;
+	padding-top:2px;
+	list-style-type: none;
+}
+.aui_tree_ul li{
+	padding-left:0px;
+	padding-top:2px;
+	padding-bottom:2px;
+}
+.aui_tree_ul li span{
+	cursor:pointer;
+	width: 14px;
+	display:block;
+	float:left;
+}
+.aui_tree_ul li a{
+	cursor:pointer;
+	color:#333333;
+	text-decoration:none;
+}
+.aui_tree_ul li a.passive{
+	color: #333333;
+}
+.aui_tree_ul li a.passive:hover{
+	color: #666666;
+}
+.aui_tree_ul li a.active{
+	cursor:pointer;
+	color:#FF0000;
+	text-decoration:none;
+}
+.aui_tree_ul li a:hover{
+	color:#121E89;
+}

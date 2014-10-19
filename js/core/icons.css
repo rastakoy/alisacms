@@ -1,0 +1,107 @@
+[class^="aui-icon-"],
+[class*=" aui-icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  *margin-right: .3em;
+  line-height: 14px;
+  vertical-align: text-top;
+  background-image: url("glyphicons-halflings.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+}
+.aui-icon-user {
+  background-position: -168px 0;
+}
+.aui-icon-screenshot {
+  background-position: -144px -96px;
+}
+.aui-icon-cog {
+  background-position: -432px 0;
+}
+.aui-icon-plus-sign {
+  background-position: 0 -96px;
+}
+.aui-icon-remove-sign {
+  background-position: -48px -96px;
+}
+.aui-icon-arrow-up {
+  background-position: -289px -96px;
+}
+.aui-icon-circle-arrow-up {
+  background-position: -288px -144px;
+}
+.aui-icon-fullscreen {
+  background-position: -456px -144px;
+}
+.aui-icon-remove-circle {
+  background-position: -168px -96px;
+}
+.aui-icon-home {
+  background-position: 0 -24px;
+}
+.aui-icon-pages {
+  background-position: 0 -168px;
+}
+.aui-icon-plus {
+  background-position: -408px -96px;
+}
+.aui-icon-tree-plus {
+	background-position: -24px -168px;
+}
+.aui-icon-tree-minus {
+	background-position: -48px -168px;
+}
+.aui-icon-pencil {
+  background-position: 0 -72px;
+}
+.aui-icon-eye-open {
+  background-position: -96px -120px;
+}
+.aui-icon-circle-arrow-right {
+  background-position: -240px -144px;
+}
+.aui-icon-circle-arrow-left {
+  background-position: -264px -144px;
+}
+.aui-icon-circle-arrow-up {
+  background-position: -288px -144px;
+}
+.aui-icon-circle-arrow-down {
+  background-position: -312px -144px;
+}
+
+.aui-icon-circle-arrow-top-left {
+  background-position: -72px -168px;
+}
+.aui-icon-circle-arrow-top-right {
+  background-position: -96px -168px;
+}
+.aui-icon-circle-arrow-bottom-right {
+  background-position: -120px -168px;
+}
+.aui-icon-circle-arrow-bottom-left {
+  background-position: -144px -168px;
+}
+.aui-icon-savedisk {
+  background-position: -168px -168px;
+}
+.aui-icon-list-alt {
+  background-position: -264px -24px;
+}
+.aui-icon-move {
+  background-position: -168px -72px;
+}
+.aui-icon-br {
+  background-position: -192px -168px;
+}
+.aui-icon-bullhorn {
+  background-position: -24px -144px;
+}
+.aui-icon-undo {
+  background-position: -216px -168px;
+}
+.aui-icon-redo {
+  background-position: -240px -168px;
+}
