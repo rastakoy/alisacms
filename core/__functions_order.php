@@ -214,6 +214,10 @@ function __fo_getSborkaJSON($id){
 	//************
 	$resp = mysql_query(" update orders set orderSum=$itogo, orderDiscount=$discount where id=$row[orderId] ");
 	//************
+	$step = "";
+	$type = get_item_type($rowItem["parent"]);
+	$ret .= "	\"type\":\"$type\",\n";
+	//************
 	return $ret;
 }
 //*********************************

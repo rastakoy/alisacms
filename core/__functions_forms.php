@@ -156,6 +156,17 @@ function __ff_create_number( $mass, $name, $postname, $comm="", $attrs="" ){
 	return $ret;
 }
 
+function __ff_create_double( $mass, $name, $postname, $comm="", $attrs="" ){
+	$ret  = "\n<tr>";
+	$ret .= "<td width=\"200\" height=\"30\">$comm</td>";
+	$value = preg_replace('/"/', "&quote;", $mass[$name]);
+	$value = preg_replace("/'/", "&rsquo;", $mass[$name]);
+	//$value = preg_replace("/'/", "&rsquo;", $mass[$name]);
+	$ret .= "<td><input $attrs name=\"$postname\" type=\"number\" id=\"$postname\" value='".$value."' ></td>";
+	$ret .= "</tr>\n";
+	return $ret;
+}
+
 function __ff_create_pricedigit( $mass ){
 	$ret  = "\n<tr>";
 	$ret .= "<td width=\"200\" height=\"30\">Цена</td>";
@@ -962,6 +973,27 @@ function __ff_get_numfield_fields( $field, $key ){
 	while($row=mysql_fetch_assoc($resp)){
 		//print_r($row);
 		if(preg_match("/int/", $row["Type"])){
+			//$ret .= "$row[Type] ";
+			$ret .= "<option value=\"$row[Field]\" ";
+			if($row["Field"]==$field)  $ret .= " selected ";
+			$ret .= ">$row[Field]</option>";
+		}
+	}
+	$ret .= "</select>\n";
+	return $ret;
+}
+//**********************************************
+function __ff_get_double_fields( $field, $key ){
+	$ret  = "<select name=\"fm_fields\" id=\"1_prm_$key\">";
+	$ret .= "	<option value=\"0\" "; 
+	if($selected=="0") $ret .= " selected "; 
+	$ret .=">Выберите поле</option>";
+	//$ret .= "</select>\n";
+	$query = "SHOW FIELDS FROM items";
+	$resp = mysql_query($query);
+	while($row=mysql_fetch_assoc($resp)){
+		//print_r($row);
+		if(preg_match("/double/", $row["Type"])){
 			//$ret .= "$row[Type] ";
 			$ret .= "<option value=\"$row[Field]\" ";
 			if($row["Field"]==$field)  $ret .= " selected ";
