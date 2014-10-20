@@ -685,7 +685,7 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 			}
 			if($roweltype["name"] == "items"){
 				//*****************
-				$ret .= "<div style=\"float:right;width:40px;margin-right:5px;margin-top:8px;\"><b>$row[kolvov]</b></div>";
+				$ret .= "<div style=\"float:right;width:40px;margin-right:5px;margin-top:8px;\"><b>".round($row["kolvov"], 2)."</b></div>";
 				$ret .= "<div style=\"float:right;width:16px;margin-right:5px;margin-top:5px;\"><img src=\"images/green/myitemname_popup/rests_basket.gif\"
 					width=\"16\" height=\"16\" border=\"0\"  align=\"left\" /></div>";
 				//*****************
@@ -1846,5 +1846,33 @@ function __ff_reload_single_order( $id, $page, $orderStatus ){
 		//*****************
 	return $ret;
 }
+//**********************************************
+function __ff_findValuesFromKey($type, $key=false, $param=false){
+	$respeltype = mysql_query("select * from itemstypes where id=$type");
+	$roweltype = mysql_fetch_assoc($respeltype);
+	if(!$key) return $roweltype["pairs"];
+	$mass = explode("\n", $roweltype["pairs"]);
+	foreach($mass as $value){
+		$val = explode("===", $value);
+		if($val[1]==$key && $param==false){
+			return $val;
+		} elseif($val[1]==$key && $param){
+			$ppmass = explode(" ", $val[4]);
+			foreach($ppmass as $pp){
+				$pval = explode("=", $pp);
+				$pkey = trim($pval[0]);
+				if($pkey == $param){
+					$pval = trim(str_replace('"', "", $pval[1]));
+					return $pval;
+				}
+			}
+		}
+	}
+	return false;
+}
+//**********************************************
+
+//**********************************************
+
 //**********************************************
 ?>
