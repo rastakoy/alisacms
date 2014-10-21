@@ -26,7 +26,11 @@ function __modal(modalId, attrs){
 	}
 	__modalObjectBg.id = "bg_"+modalId;
 	__modalObjectBg.className = "__modal_background";
-	__modalObjectBg.style.display = "";
+	if(attrs.effect=="fade"){
+		$(__modalObjectBg).fadeIn(500);
+	}else{
+		__modalObjectBg.style.display = "";
+	}
 	__modalObjectBg.style.zIndex = mzIndex*1;
 	if(attrs.clickableBg){
 		__modalObjectBg.style.cursor = "pointer";
@@ -44,19 +48,37 @@ function __modal(modalId, attrs){
 	}
 	__modalObject.id = modalId;
 	__modalObject.className = "__modal_window";
-	__modalObject.style.display = "";
+	if(attrs.effect=="fade"){
+		$(__modalObject).fadeIn(500);
+		__modalObject.effect = attrs.effect;
+	}else{
+		__modalObject.style.display = "";
+	}
 	__modalObject.style.zIndex = mzIndex*1;
 	mzIndex++;
 	//***************************************
+	if(attrs.width.match(/\%/)){
+		 attrs.width = window.innerWidth/100*attrs.width.replace(/%/, "");
+	}
+	if(attrs.height.match(/\%/)){
+		 attrs.height = window.innerHeight/100*attrs.height.replace(/%/, "");
+	}
 	__modalObject.style.left = (  window.innerWidth/2 - attrs.width/2  )+"px";
 	__modalObject.style.top = (  window.innerHeight/2 - attrs.height/2  )+"px";
 	__modalObject.style.width = attrs.width + "px";
 	__modalObject.style.height = attrs.height + "px";
 	//***************************************
 	__modalObject.close = function(){
-		this.style.display = "none";
 		document.body.style.overflow = "";
-		document.getElementById("bg_"+this.id).style.display = "none";
+		//alert(this.effect);
+		if(this.effect=="fade"){
+			$("#bg_"+this.id).fadeOut(500);
+			$(this).fadeOut(500);
+			//alert("asd");
+		}else{
+			this.style.display = "none";
+			document.getElementById("bg_"+this.id).style.display = "none";
+		}
 		//document.getElementById("close_"+this.id).style.display = "none";
 	};
 	//***************************************

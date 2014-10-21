@@ -68,6 +68,9 @@ class="amenu">Справка ???</a></strong></div>
 <!--  -------------------------------------------------------------------- -->
 <div class="menuitem"><strong>
 <a href="javascript:show_filemanager_upload2('out_file.php?of=__of_uploadp_maker.php&title=Конструктор загрузчика прайс-листа')" class="amenu">! Конструктор загрузчика прайс-листа</a></strong></div> 
+<!--  -------------------------------------------------------------------- -->
+<div class="menuitem"><strong>
+<a href="javascript:show_filemanager_upload2('out_file.php?of=__of_sms_manager.php&title=SMS статистика')" class="amenu">! SMS статистика</a></strong></div> 
 <!--<div class="menuitem"><strong>
 <a href="javascript:show_filemanager_upload2('out_file.php?of=__of_grabber_maker.php&title=Конструктор граббера')" class="amenu">! Конструктор граббера</a></strong></div> 
 <div class="menuitem">&nbsp;</div> -->

@@ -204,14 +204,28 @@ function __ao_saveOrderTTN(orderId){
 		url: __ajax_url,
 		data: paction,
 		success: function(html) {
-			//show_ritems('orders', orderPage);
 			//alert(html);
-			//document.getElementById("downloadForm").action = html;
+			if(confirm("Отправить SMS с ТТН этому пользователю?")){
+				__ao_sendSMS();
+			}
 		}
 	});
 }
 //************************************************
-
+function __ao_sendSMS(){
+	var paction = "paction=ao_sendSMS";
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: paction,
+		success: function(html) {
+			alert(html);
+			//if(confirm("Отправить SMS с ТТН этому пользователю?")){
+			//	__ao_sendSMS();
+			//}
+		}
+	});
+}
 //************************************************
 
 //************************************************

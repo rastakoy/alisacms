@@ -36,6 +36,7 @@ function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 		$ret .= "<img src=\"images/green/icons/send_email.gif\" width=\"16\" height=\"16\" border=\"0\" align=\"absmiddle\" style=\"margin-right:5px;\"></a>";
 		$ret .= "</td><td>";
 		$ret .= "ТТН: <input type=\"text\" id=\"orderTTN\" value=\"$order[TTN]\" />&nbsp; &nbsp;<a href=\"javascript:__ao_saveOrderTTN($order[id])\">ok</a>";
+		//$ret .= "<button>Отправить sms c ТТН</button>";
 		$ret .= "</td></tr></table>";
 	}
 	$ret .= "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" id=\"orderContent\" ";

@@ -2,7 +2,7 @@ ul#treeMenu{
 	padding: 0;
 	margin: 0;
 	background-color:#FFFFFF;
-	height: 300px;
+	min-height: 100px;
 	display: block;
 	padding-left: 10px;
 }

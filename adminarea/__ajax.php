@@ -96,6 +96,12 @@ $value = $_POST["value"];
 $value =  trim(iconv("UTF-8", "CP1251", $_POST["value"]));
 $value = str_replace("'", "\\'", $value);
 //**************
+if($paction=="ao_sendSMS"){
+	echo "send";
+	require_once("__class.eSputnikAPI.php");
+	$esp = new eSputnikAPI();
+	$status = $esp->sendSMS();
+}
 if($paction=="ao_saveOrderTTN"){
 	$ttn = $_POST["ttn"];
 	$ttn = iconv("UTF-8", "CP1251", $ttn);

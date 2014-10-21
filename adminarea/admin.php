@@ -44,7 +44,7 @@ $__page_parent=$_GET["parent"];
 		<a href="javascript:editItemToCatalog('1');" id="edit_folder_cat_button">Свойства группы</a>
 		<a href="javascript:" id="deletefolderbutton">Удалить группу</a>
 		<a href="javascript:show_ritems('help');" id="outerhelp">?</a>
-		<span style="padding-top:5px; display:block;">&nbsp;AlisaCMS 5.2</span>
+		<span style="padding-top:5px; display:block;">&nbsp;AlisaCMS 5.3</span>
 	    <?  //echo $__page_title; ?>
 		</div>
 		<div style="float:none; clear:both;"></div>

@@ -101,7 +101,7 @@ function __mtm_convert_session_to_simple_filter($sess, $fid){
 	foreach ($mass as $key=>$val){
 		$vmass = explode("===", $val);
 		//echo "<pre>"; print_r($vmass); echo "</pre>";
-		if($vmass[count($vmass)-1]=="alisa_activefilter"){
+		if(trim($vmass[count($vmass)-1])=="alisa_activefilter"){
 			$cc = 0;
 			$fin = false;
 			foreach($smass as $k=>$v){
@@ -122,6 +122,15 @@ function __mtm_convert_session_to_simple_filter($sess, $fid){
 		}
 		$rv .= "";
 	}
+	return $rv;
+}
+//**************************************************
+function __mtm_convert_priceDiapason_to_simple_filter($sess){
+	$rv = "";
+	//****************************
+	$smass = explode("&", $sess);
+	$rv .= str_replace("min=", " && pricedigit>=", $smass[0]);
+	$rv .= str_replace("max=", " && pricedigit<=", $smass[1]);
 	return $rv;
 }
 //**************************************************
@@ -180,4 +189,23 @@ function __mtm_code_from_optionnames(  $id, $code){
 	$ret = preg_replace("/~$/", "", $ret);
 	return $ret;
 }
+//**************************************************
+function __mtm_getItemCountFromFilter($id, $str, $sess){
+	global $dop_query;
+	if($sess["priceDiapason"]!=""){
+		$pdia = __mtm_convert_priceDiapason_to_simple_filter($sess["priceDiapason"]);
+	}
+	$flink = preg_replace("/\/$/", "", __fp_create_folder_way("items", $id, 1));
+	$mass = explode("===", $str);
+	$query = "select id from items where ".$mass[1]."='$flink'  $dop_query $pdia ";
+	//echo $query;
+	//echo $str;
+	$resp = mysql_query($query);
+	return mysql_num_rows($resp);
+}
+//**************************************************
+
+//**************************************************
+
+//**************************************************
 ?>

@@ -19,6 +19,9 @@ function __pb_changeQtty(obj, aqtty){
 		success: function(html) {
 			//alert(html);
 			myobj = eval("("+html+")");
+			myobj.onStore = myRound(myobj.onStore*1, 2);
+			myobj.qtty = myRound(myobj.qtty*1, 2);
+			sumQtty = myRound(myobj.onStore + myobj.qtty, 2);
 			if(myobj.qtty<myobj.min) {
 				myobj.onStore = myobj.onStore*1-(1-myobj.qtty);
 				myobj.qtty = .05;
@@ -38,13 +41,14 @@ function __pb_changeQtty(obj, aqtty){
 			if(myobj.id){
 				document.getElementById("basket_icon").style.backgroundImage = "url(/images/basket_full.gif)";
 				document.getElementById("basket_button").innerHTML = "В корзине";
-				document.getElementById("basket_button").href = "javascript:document.getElementById('hmkatalog2').mmOpenClick=true;document.getElementById('hmkatalog2').show_menu()";
+				document.getElementById("basket_button").href = "javascript:__fb_show_basket()";
 			}else{
 				document.getElementById("basket_icon").style.backgroundImage = "url(/images/basket_empty.gif)";
 				document.getElementById("basket_button").innerHTML = "Купить";
 				document.getElementById("basket_button").href = "javascript:add_to_r()";
 			}
-			if(myobj.onStore*1+myobj.qtty*1>myobj.qttyMax*1){
+			if(sumQtty>myobj.qttyMax*1){
+				alert(myobj.onStore*1+myobj.qtty*1+" :: "+myobj.qttyMax*1)
 				document.getElementById("basket_icon").style.display = "none";
 				document.getElementById("basket_button").style.display = "none";
 				document.getElementById("qttyItem_"+myobj.itemId).style.display = "none";

@@ -195,4 +195,19 @@
       if($units == 9) $str_units = " девять";
       return($str_units);
     }
- ?>
+//*************************************
+function __fprices_getDiapason($parent){
+	global $dop_query;
+	$resp = mysql_query("select pricedigit from items where pricedigit!=0 && parent=$parent && folder=0 $dop_query order by pricedigit ASC  ");
+	while($row = mysql_fetch_assoc($resp)){
+		$array[] = $row;
+	}
+	return array(
+		0=>preg_replace("/\..*$/", "", $array[0]["pricedigit"]), 
+		1=>preg_replace("/\..*$/", "", $array[count($array)-1]["pricedigit"]+1)
+	);
+}
+//*************************************
+
+//*************************************
+?>
