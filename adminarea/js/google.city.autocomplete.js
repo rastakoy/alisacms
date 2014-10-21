@@ -77,3 +77,9 @@ function load__(){
 	pac.style.display = "";
 	citiesLoaded = true;
 }
+function clearGoogleCitiesCash(){
+	citiesLoaded = false;
+	if(verify)  verify.parentNode.removeChild(verify);
+	pac = document.querySelector('.pac-container');
+	if(pac) pac.parentNode.removeChild(pac);
+}

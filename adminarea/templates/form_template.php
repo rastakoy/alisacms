@@ -66,10 +66,21 @@ foreach($mass as $key=>$val){
 				foreach($MI as $mik=>$miv){
 					$miv = explode("===", $miv);
 					if($miv[0]=="number" && $tmass[1]==$miv[1])
-						echo __ff_create_number( $row, $tmass[1], $tmass[2], $tmass[3], $tmass[4] );
+						echo __ff_create_number( $row, $tmass[1], $tmass[2], $tmass[3], $tmass[4], $tmass[5] );
 				}
 			} else {
-				echo __ff_create_number( $row, $tmass[1], $tmass[2], $tmass[3], $tmass[4] );
+				echo __ff_create_number( $row, $tmass[1], $tmass[2], $tmass[3], $tmass[4], $tmass[5] );
+			}
+		}
+		if($tmass[0]=="double"){
+			if($MI){
+				foreach($MI as $mik=>$miv){
+					$miv = explode("===", $miv);
+					if($miv[0]=="double" && $tmass[1]==$miv[1])
+						echo __ff_create_number( $row, $tmass[1], $tmass[2], $tmass[3], $tmass[4], $tmass[5] );
+				}
+			} else {
+				echo __ff_create_number( $row, $tmass[1], $tmass[2], $tmass[3], $tmass[4], $tmass[5] );
 			}
 		}
 		if($tmass[0]=="pricedigit"){

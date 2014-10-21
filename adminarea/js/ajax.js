@@ -186,10 +186,7 @@ function getiteminfo_save(itemid){
 						//reload_single_item(cur_item_id);
 						cur_item_id = 0;
 						show_ritems(cur_folder_id);
-						citiesLoaded = false;
-						if(verify)  verify.parentNode.removeChild(verify);
-						pac = document.querySelector('.pac-container');
-						if(pac) pac.parentNode.removeChild(pac);
+						clearGoogleCitiesCash();
 						document.getElementById('divinfo').innerHTML += "Произведено редактирование элемента средствами json+ajax<br/>\n"+html+"<br/>\n";
 					}
 				});
@@ -276,10 +273,7 @@ function getiteminfo_save(itemid){
 			//reload_single_item(cur_item_id);
 			cur_item_id = 0;
 			show_ritems(cur_folder_id);
-			citiesLoaded = false;
-			if(verify)  verify.parentNode.removeChild(verify);
-			pac = document.querySelector('.pac-container');
-			if(pac) pac.parentNode.removeChild(pac);
+			clearGoogleCitiesCash();
 			document.getElementById('divinfo').innerHTML += "Произведено редактирование"+html+"<br/>\n";
 			//document.getElementById("tr_item_s_"+itemid).style.display = "";
 			//document.getElementById("tr_item_"+itemid).style.display = "none";
@@ -303,10 +297,7 @@ function getiteminfo_close(itemid){
 	obj_m.style.display="none";
 	obj_w.style.display="none";
 	$("#show_myitemblock_cont").empty();
-	citiesLoaded = false;
-	if(verify)  verify.parentNode.removeChild(verify);
-	pac = document.querySelector('.pac-container');
-	if(pac) pac.parentNode.removeChild(pac);
+	clearGoogleCitiesCash()
 	//$("#show_myitemblock_cont").empty();
 	//$("#root_body").removeClass("noscroll");
 	//$(document).unbind('mousewheel');

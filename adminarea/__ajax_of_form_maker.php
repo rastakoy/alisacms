@@ -25,6 +25,7 @@ $paction = $_POST["paction"];
 //*************************
 $typesmass[] = "inputtext";
 $typesmass[] = "number";
+$typesmass[] = "double";
 $typesmass[] = "parent";
 $typesmass[] = "datepicker";
 $typesmass[] = "hidden";
@@ -46,6 +47,7 @@ $typesmass[] = "grabber";
 $typesmass[] = "coder";
 $typesmass[] = "selectfromitems_many";
 $typesmass[] = "color";
+$typesmass[] = "semp";
 //*************************
 if($paction=="get_template"){ 
 	$id = $_POST["tid"];
@@ -102,6 +104,9 @@ if($paction=="get_template"){
 						} elseif($vmass[0] == "pricedigit"){
 							echo "Опция цены";
 							echo " <input id=\"1_prm_$key\" type=\"hidden\"  value='' / > ";
+						} elseif($vmass[0] == "semp"){
+							echo "Присоединяемые модели";
+							echo " <input id=\"1_prm_$key\" type=\"hidden\"  value='' / > ";
 						} elseif($vmass[0] == "grabber"){
 							echo "Определить граббер";
 							echo " <input id=\"1_prm_$key\" type=\"hidden\"  value='' / > ";
@@ -129,6 +134,8 @@ if($paction=="get_template"){
 									echo __ff_get_textfield_fields($vmass[1], $key);
 								if($vmass[0] == "number")
 									echo __ff_get_numfield_fields($vmass[1], $key);
+								if($vmass[0] == "double")
+									echo __ff_get_double_fields($vmass[1], $key);
 								if($vmass[0] == "inputcheckbox")
 									echo __ff_get_checkbox_fields($vmass[1], $key);
 								if($vmass[0] == "selectrectofolder")
