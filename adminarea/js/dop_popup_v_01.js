@@ -275,6 +275,21 @@ function toggle_new_show(newid){
 	}
 }
 //*******************************************************************************************
+function toggle_sale_show(newid){
+	//alert(akcid)
+	imgsrc = document.getElementById("imgsale_"+newid);
+	lnk = site+"adminarea/images/green/myitemname_popup/";
+	imgs = imgsrc.src.substring(lnk.length, lnk.length+8);
+	//alert(lnk + "::" + imgsrc.src);
+	if(imgs=="sale.gif"){
+		imgsrc.src = lnk+"sale_no.gif";
+		toogle_sale_show_save(newid);
+	} else {
+		imgsrc.src = lnk+"sale.gif";
+		toogle_sale_show_save(newid);
+	}
+}
+//*******************************************************************************************
 var close_mtm_id = false;
 function filter_mtm_show(sfc_id){
 	close_mtm_id = sfc_id;

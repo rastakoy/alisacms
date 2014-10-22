@@ -1480,6 +1480,17 @@ function toogle_new_show_save(newid){
 	});
 }
 //******************************
+function toogle_sale_show_save(newid){
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: "paction=toogle_sale_show_save&id="+newid,
+		success: function(html) {
+			//alert(html);
+		}
+	});
+}
+//******************************
 function save_fast_cont(sfc_id){
 	var fast_cont = tinyMCE.get('fast_cont').getContent();
 	tinyMCE.execCommand('mceToggleEditor',false,'fast_cont');

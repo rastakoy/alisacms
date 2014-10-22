@@ -164,7 +164,7 @@ function multiitem_change(bId, cbObj){
 function revolve_image(rObj){
 	var obj = document.getElementById("itemgimg");
 	var oldSrc = obj.src;
-	obj.src = rObj.src.replace(/132x99\//, "");
+	obj.src = rObj.src.replace(/50x72\//, "");
 	rObj.src = oldSrc;
 	//alert(rObj.src);
 }

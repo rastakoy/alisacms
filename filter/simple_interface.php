@@ -55,6 +55,12 @@ foreach($specmass as $val) if($val=='is_new') echo " checked ";
 echo "  /> ";
 $fcount = __mtm_getItemCountFromFilterSpec( $_SESSION, $__page_row["id"], "is_new" );
 echo "<span class=\"span_mtm_name\">Новинки ($fcount)</span></span>\n";
+echo "<span class=\"span_mtm\" >";  
+echo "<input onClick=\"addToFilterSpec('is_sale', this)\" type=\"checkbox\" value=\"1\" ";
+foreach($specmass as $val) if($val=='is_sale') echo " checked ";
+echo "  /> ";
+$fcount = __mtm_getItemCountFromFilterSpec( $_SESSION, $__page_row["id"], "is_sale" );
+echo "<span class=\"span_mtm_name\">Распродажа ($fcount)</span></span>\n";
 echo "</div>";
 //**************************************
 echo "<div id=\"\" class=\"mtm_v2_level\" style=\"padding-bottom:10px;\" >";

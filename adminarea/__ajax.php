@@ -1043,6 +1043,18 @@ if ($paction=="toogle_new_show_save") {
 	$resp = mysql_query($query);
 }
 //**************
+if ($paction=="toogle_sale_show_save") {
+	$query = "select * from items where id=$pid ";
+	//echo $query."<br/>";
+	$resp = mysql_query($query);
+	$row = mysql_fetch_assoc($resp);
+	$row["is_sale"]=!$row["is_sale"];
+	if(!$row["is_sale"]) $row["is_sale"] = "0";
+	$query = "update items set is_sale=$row[is_sale] where id=$pid ";
+	//echo $query."<br/>";
+	$resp = mysql_query($query);
+}
+//**************
 if ($paction=="fast_cont_save") {
 	$cont = preg_replace("/\\\\\\.*'/", "'", $cont);
 	$query = "update items set cont='$cont' where id=$pid ";

@@ -769,6 +769,20 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 				$ret .= "</a>";
 			}
 		}
+		//*********************
+		if($roweltype["name"] == "items"){
+			if($multidiv) {
+				$ret .= "<img src=\"images/green/myitemname_popup/spacer16x16.gif\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
+			} else {
+				$ret .= "<a href=\"javascript:toggle_sale_show($row[id])\" title=\"Распродажа\">";
+				if($row["is_sale"]==1){
+					$ret .= "<img src=\"images/green/myitemname_popup/sale.gif\" id=\"imgsale_$row[id]\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
+				} else {
+					$ret .= "<img src=\"images/green/myitemname_popup/sale_no.gif\" id=\"imgsale_$row[id]\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
+				}
+				$ret .= "</a>";
+			}
+		}
 		//**********************************************************************************
 		if($roweltype["name"] != "orders" && $roweltype["name"] != "alisagoo"){ 
 			$ret .= "<a href=\"javascript:toggle_page_show($row[id])\" title=\"Отображение страницы в сайте\">";
