@@ -125,6 +125,16 @@ function __mtm_convert_session_to_simple_filter($sess, $fid){
 	return $rv;
 }
 //**************************************************
+function __mtm_convert_filterSpec_to_simple_filter($sess){
+	$rv = "";
+	//****************************
+	$smass = explode("&", $sess);
+	foreach($smass as $value){
+		$rv .= " && $value=1 ";
+	}
+	return $rv;
+}
+//**************************************************
 function __mtm_convert_priceDiapason_to_simple_filter($sess){
 	$rv = "";
 	//****************************
@@ -190,21 +200,62 @@ function __mtm_code_from_optionnames(  $id, $code){
 	return $ret;
 }
 //**************************************************
-function __mtm_getItemCountFromFilter($id, $str, $sess){
-	global $dop_query;
+function __mtm_construct_simle_sql( $sess, $folderId ){
 	if($sess["priceDiapason"]!=""){
 		$pdia = __mtm_convert_priceDiapason_to_simple_filter($sess["priceDiapason"]);
 	}
+	if($sess["simpleFilter"]!=""){
+		$my_filter = get_item_type($folderId);
+		$sfdq = __mtm_convert_session_to_simple_filter($sess["simpleFilter"], $my_filter);
+	}
+	if($sess["filterNalichie"]=="nal"){
+		$isnal = " && kolvov>0 ";
+	}
+	if($sess["filterSpec"]!=""){
+		$spec = __mtm_convert_filterSpec_to_simple_filter($sess["filterSpec"]);
+	}
+	return " $pdia $sfdq $isnal $spec " ;
+}
+//**************************************************
+function __mtm_getItemCountFromFilter($id, $str, $sess, $folderId){
+	global $dop_query;
+	$sql = __mtm_construct_simle_sql( $sess, $folderId );
 	$flink = preg_replace("/\/$/", "", __fp_create_folder_way("items", $id, 1));
 	$mass = explode("===", $str);
-	$query = "select id from items where ".$mass[1]."='$flink'  $dop_query $pdia ";
-	//echo $query;
+	$query = "select id from items where ".$mass[1]."='$flink'  $sql  $dop_query ";
+	//echo $query."  ::  ";
 	//echo $str;
 	$resp = mysql_query($query);
 	return mysql_num_rows($resp);
 }
 //**************************************************
-
+function __mtm_getItemCountFromFilterNal( $sess, $folderId ){
+	global $dop_query;
+	$sql = __mtm_construct_simle_sql( $sess, $folderId );
+	$query = "select id from items where kolvov>0 && parent=$folderId && folder=0 $sql $dop_query ";
+	//echo $query;
+	$resp = mysql_query($query);
+	return mysql_num_rows($resp);
+}
+//**************************************************
+function __mtm_getItemCountFromFilterAll( $sess, $folderId ){
+	global $dop_query;
+	$sql = __mtm_construct_simle_sql( $sess, $folderId );
+	$sql = str_replace("&& kolvov>0", "", $sql);
+	$query = "select id from items where parent=$folderId && folder=0 $sql $dop_query ";
+	//echo $query;
+	$resp = mysql_query($query);
+	return mysql_num_rows($resp);
+}
+//**************************************************
+function __mtm_getItemCountFromFilterSpec( $sess, $folderId, $value ){
+	global $dop_query;
+	$sql = __mtm_construct_simle_sql( $sess, $folderId );
+	$query = "select id from items where $value=1 && parent=$folderId && folder=0 $sql $dop_query ";
+	//echo $query;
+	$resp = mysql_query($query);
+	return mysql_num_rows($resp);
+}
 //**************************************************
 
 //**************************************************
