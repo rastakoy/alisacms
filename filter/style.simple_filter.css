@@ -1,0 +1,40 @@
+div#div_filter{
+	color: #FFFFFF;
+	margin-top: 0px;
+	padding: 10px;
+	padding-right: 20px;
+	font-size: 11px;
+	line-height: 20px;
+	width: 180px;
+}
+div#filter_cont{
+	color: #000000;
+	/*background-color: #E2E2E2;*/
+	background-color: #FFFFFF;
+	padding-bottom: 0px;
+	font-size: 11px;
+}
+div#filter_cont span.span_mtm{
+/******************/
+	font-weight:normal; 
+	display: block;
+	float: ;
+	clear: none;
+	font-size: 11px;
+	min-height: auto;
+	padding-top: 0px;
+}
+div#filter_cont span.span_mtm_name{
+	cursor:pointer;
+}
+div#filter_cont span.span_mtm_name:hover{
+	text-decoration: underline;
+}
+div.priceDiapasonButton{
+	background-color: #E88B00;
+	padding: 5px;
+	border-radius: 5px;
+	text-align:center;
+	width: 140px;
+	margin-top: 10px;
+}

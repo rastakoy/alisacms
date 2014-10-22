@@ -1,0 +1,34 @@
+div#mtm_dsel{
+/******************/
+width: 200px;
+}
+div#div_mtmfilter{
+	color: #FFFFFF;
+	margin-top: 0px;
+	padding: 0px;
+	padding-right: 20px;
+}
+div#mtmfilter_cont{
+/*************************/
+	color: #000000;
+	background-color: #E2E2E2;
+	padding-bottom: 20px;
+	
+}
+div#mtmfilter_cont span.span_mtm{
+/******************/
+	font-weight:normal; 
+	display: block;
+	float: none;
+	clear: none;
+	font-size: 11px;
+	min-height: auto;
+	padding-top: 0px;
+}
+div#mtmfilter_cont_1{
+/*************************/
+	color: #000000;
+	background-color: #E2E2E2;
+	padding-bottom: 0px;
+	
+}
