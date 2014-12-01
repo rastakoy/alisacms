@@ -1,0 +1,28 @@
+div.selectItem{
+	height: 34px;
+}
+div.selectItem:hover{
+	height: 34px;
+	background-color:#E9E9E9;
+}
+div.__selectObject-class{
+	border: 1px solid #999999;
+	width: 190px;
+	height: 35px;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-left: 5px;
+	background-image: url(select.gif);
+	background-repeat: no-repeat;
+	background-position: right center;
+	cursor:pointer;
+}
+div.__selectObjectInfo-class{
+	border: 1px solid #999999;
+	width: 195px;
+	
+	padding-right: 10px;
+	cursor:pointer;
+	background-color:#FFFFFF;
+	position: absolute;
+}

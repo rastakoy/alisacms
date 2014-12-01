@@ -1,4 +1,5 @@
 function click_mtm(mobj, pid){
+	//alert("ok");
 	if(mobj.checked){
 		ind = mobj.id.replace(/smlw-/gi , "");
 		//ind = ind.replace(/smw-/gi , "");

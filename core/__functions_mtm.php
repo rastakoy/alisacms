@@ -86,6 +86,20 @@ function __mtm_generate_level($smlevel_way, $smid, $smkey, $smlevel=false){
 	return $rv;
 }
 //**************************************************
+function __mtm_convert_session_to_multi_filter($sess){
+	$smass = __mtm_convert_session($sess["mtmfilter"], true);
+	$pregmass = __mtm_gen_pregs(  $smass  );
+	if(count($pregmass)>0){
+		$rv = " && (";
+		foreach($pregmass as $key=>$value){
+			if($key>0) $rv .= " || ";
+			$rv .= " mtm_cont RLIKE '(^".$value[0]."-|-.?".$value[0]."-)' ";
+		}
+		$rv .= ") ";
+	}
+	return $rv;
+}
+//**************************************************
 function __mtm_convert_session_to_simple_filter($sess, $fid){
 	$rv = "";
 	//****************************
@@ -142,6 +156,19 @@ function __mtm_convert_priceDiapason_to_simple_filter($sess){
 	$rv .= str_replace("min=", " && pricedigit>=", $smass[0]);
 	$rv .= str_replace("max=", " && pricedigit<=", $smass[1]);
 	return $rv;
+}
+//**************************************************
+function __mtm_convert_parents_to_simple_filter($parent){
+	global $dop_query;
+	$ret = " && (  parent=$parent ";
+	$query = " select id from items where parent=$parent $dop_query order by prior asc  ";
+	//echo $query;
+	$resp = mysql_query($query);
+	while($row = mysql_fetch_assoc($resp)){
+		$ret .= "  || parent=$row[id]  ";
+	}
+	$ret .= " ) ";
+	return $ret;
 }
 //**************************************************
 function __mtm_show_item_mtm($fid, $id){
@@ -214,11 +241,25 @@ function __mtm_construct_simle_sql( $sess, $folderId ){
 	if($sess["filterSpec"]!=""){
 		$spec = __mtm_convert_filterSpec_to_simple_filter($sess["filterSpec"]);
 	}
-	return " $pdia $sfdq $isnal $spec " ;
+	
+	$parents =  __mtm_convert_parents_to_simple_filter($folderId);
+	//echo $parents;
+	
+	$msql = __mtm_construct_multi_sql( $sess );
+	
+	return " $parents $pdia $sfdq $isnal $spec $msql " ;
+}
+//**************************************************
+function __mtm_construct_multi_sql( $sess ){
+	if($_SESSION["mtmfilter"]!=""){
+		$mtmquery = __mtm_convert_session_to_multi_filter($sess);
+	}
+	return " $mtmquery " ;
 }
 //**************************************************
 function __mtm_getItemCountFromFilter($id, $str, $sess, $folderId){
 	global $dop_query;
+	//echo "asd";
 	$sql = __mtm_construct_simle_sql( $sess, $folderId );
 	$flink = preg_replace("/\/$/", "", __fp_create_folder_way("items", $id, 1));
 	$mass = explode("===", $str);

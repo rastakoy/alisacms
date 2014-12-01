@@ -470,3 +470,16 @@ img#left_panel_close{
 	top: 150px;
 	cursor:pointer;
 }
+div#adminGlobalSettings{
+	background-color: #FFFFFF;
+	width: 600px;
+	height:200px;
+	margin-top: 10px;
+	padding: 10px;
+}
+td.tdGlobalSettings{
+	height: 30px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCCCCC;	
+}

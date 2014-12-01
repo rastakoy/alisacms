@@ -12,6 +12,14 @@ function __fo_getOrderList($orderId){
 }
 //*********************************
 function __fo_getOrder($val, $iAmUser=false, $toWord=false){
+	
+	$calcRests = true;
+	$resp = mysql_query("select * from pages where name='rests'  ");
+	$row = mysql_fetch_assoc($resp);
+	if($row['cont']=='0'){
+		$calcRests = false;
+	}
+	
 	$resp = mysql_query("select * from orders where id=$val ");
 	$order = mysql_fetch_assoc($resp);
 	//$ret .= "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" ><tr>";
@@ -34,6 +42,8 @@ function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 		$ret .= "<img src=\"images/green/myitemname_popup/word.gif\" width=\"16\" height=\"16\" border=\"0\" align=\"absmiddle\" style=\"margin-right:5px;\"></a>";
 		$ret .= "<a href=\"javascript:__ao_postPrice($order[id])\">";
 		$ret .= "<img src=\"images/green/icons/send_email.gif\" width=\"16\" height=\"16\" border=\"0\" align=\"absmiddle\" style=\"margin-right:5px;\"></a>";
+		$ret .= "<a href=\"javascript:showSMSWindow($order[id])\">";
+		$ret .= "<img src=\"images/green/icons/sms.gif\" width=\"16\" height=\"16\" border=\"0\" align=\"absmiddle\" style=\"margin-right:5px;\"></a>";
 		$ret .= "</td><td>";
 		$ret .= "ТТН: <input type=\"text\" id=\"orderTTN\" value=\"$order[TTN]\" />&nbsp; &nbsp;<a href=\"javascript:__ao_saveOrderTTN($order[id])\">ok</a>";
 		//$ret .= "<button>Отправить sms c ТТН</button>";
@@ -89,15 +99,22 @@ function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 			$ret .= "<td width=\"70\" align=\"center\" bgcolor=\"#FFFFFF\" id=\"price_$row[id]\">$row[price]</td>";
 			$ret .= "<td width=\"80\" align=\"center\" bgcolor=\"#FFFFFF\">";
 			if(!$toWord){
-				$ret .= "<input type=\"number\" style=\"width:70px;height:30px;\" ";
-				if($order["orderStatus"]=="0")
-					$ret .= " min=\".05\" step=\".05\" max=\"$item[kolvov]\"  ";
-				else
-					$ret .= " min=\".05\" step=\".05\" max=\"".($item["kolvov"]+$row["qtty"])."\"  ";
-				$ret .= " id=\"qtty_$row[id]\" value=\"$row[qtty]\" onChange=\"__ao_changeQtty(this)\" ></td>";
+				if($calcRests){
+					$ret .= "<input type=\"number\" style=\"width:70px;height:30px;\" ";
+					if($order["orderStatus"]=="0")
+						$ret .= " min=\"1\" step=\"1\" max=\"$item[kolvov]\"  ";
+					else
+						$ret .= " min=\"1\" step=\"1\" max=\"".($item["kolvov"]+$row["qtty"])."\"  ";
+					$ret .= " id=\"qtty_$row[id]\" value=\"$row[qtty]\" onChange=\"__ao_changeQtty(this)\" >";
+				}else{
+					$ret .= "<input type=\"number\" style=\"width:70px;height:30px;\" ";
+					$ret .= " min=\"1\" step=\"1\" max=\"1000\"  ";
+					$ret .= " id=\"qtty_$row[id]\" value=\"$row[qtty]\" onChange=\"__ao_changeQtty(this)\" >";
+				}
 			} else {
-				$ret .= "$row[qtty]</td>";
+				$ret .= "$row[qtty]";
 			}
+			$ret .= "</td>";
 			//*********** Расчет скидки 
 			if($row["discount"]){
 				$ret .= "<td width=\"70\" align=\"center\" bgcolor=\"#FFFFFF\" id=\"discount_$row[id]\">$row[discount]%</td>";
@@ -168,6 +185,12 @@ function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 }
 //*********************************
 function __fo_getSborkaJSON($id){
+	$calcRests = true;
+	$resp = mysql_query("select * from pages where name='rests'  ");
+	$row = mysql_fetch_assoc($resp);
+	if($row['cont']=='0'){
+		$calcRests = false;
+	}
 	$resp = mysql_query("select * from sborka where id=$id");
 	$row = mysql_fetch_assoc($resp);
 	$respItem = mysql_query("select * from items where id=$row[itemId]");
@@ -202,16 +225,28 @@ function __fo_getSborkaJSON($id){
 	$itogo =  round( $allSum - ( $allSum / 100 * __fo_getUserDiscount($row["userId"], $row["orderId"]) ), 2);
 	$ret .= "	\"orderItogo\":\"$itogo грн.\",\n";
 	$ret .= "	\"itemId\":\"$row[itemId]\",\n";
+	$edrow = __fp_get_row_from_way(  explode(  "/", $row["kolvo_ediz"]  ), "items"  );
+	$ret .= "	\"ediz\":\"$edrow[name]\",\n";
 	//************
 	$queryOrder = " select * from orders where id=$row[orderId] ";
 	$respOrder = mysql_query($queryOrder);
 	$rowOrder = mysql_fetch_assoc($respOrder);
 	//************
 	//echo 
-	if($rowOrder["orderStatus"]=="0")
-		$ret .= "	\"onStore\":\"".(round($rowItem["kolvov"], 2)-$row["qtty"])."\",\n";
-	else
-		$ret .= "	\"onStore\":\"".(round($rowItem["kolvov"], 2)+$row["qtty"])."\",\n";
+	if($calcRests){
+		if($rowOrder["orderStatus"]=="0")
+			$ret .= "	\"onStore\":\"".(round($rowItem["kolvov"], 2)-$row["qtty"])."\",\n";
+		else
+			$ret .= "	\"onStore\":\"".(round($rowItem["kolvov"], 2)+$row["qtty"])."\",\n";
+	}else{
+		if($rowItem['is_rests']==1){
+			$onStore = 'show';
+		}else{
+			$onStore = 'hide';
+		}
+		$ret .= "	\"onStore\":\"$onStore\",\n";
+	}
+	
 	//************
 	$resp = mysql_query(" update orders set orderSum=$itogo, orderDiscount=$discount where id=$row[orderId] ");
 	//************

@@ -97,10 +97,37 @@ $value =  trim(iconv("UTF-8", "CP1251", $_POST["value"]));
 $value = str_replace("'", "\\'", $value);
 //**************
 if($paction=="ao_sendSMS"){
-	echo "send";
+	if($SMSSender!="on"){
+		echo "У вас нет прав на отправку SMS";
+		exit;
+	}
+	$text = $_POST["text"];
+	$orderId = $_POST["orderId"];
+	$resp = mysql_query("select * from orders where id=$orderId  ");
+	$order = mysql_fetch_assoc($resp);
+	$resp = mysql_query("select * from users where id=$order[userId]  ");
+	$user = mysql_fetch_assoc($resp);
 	require_once("__class.eSputnikAPI.php");
 	$esp = new eSputnikAPI();
-	$status = $esp->sendSMS();
+	$phone = $user["phone"];
+	$phone = str_replace("(", "", $phone);
+	$phone = str_replace(")", "", $phone);
+	$phone = str_replace(" ", "", $phone);
+	$phone = str_replace("-", "", $phone);
+	$phone = trim($phone);
+	//echo $phone;
+	//$status = $esp->sendSMS($phone, $text);
+	$resp = mysql_query("select * from smsmanager order by id desc limit 0,1");
+	$row = mysql_fetch_assoc($resp);
+	if($row['balance']>$smsPrice){
+		$status = $esp->sendSMS_curl($phone, $text);
+		$text = iconv("UTF-8", "CP1251", $text);
+		$date = date('Y-m-d H:i:s');
+		$resp = mysql_query("insert into smsmanager (cont, phone, text, balance, time) values ('$status', '$phone', '$text', ".($row['balance']-$smsPrice)." , '$date'  )  ");
+		echo "Сообщение отправлено";
+	}else{
+		echo "Не хватает средств";
+	}
 }
 if($paction=="ao_saveOrderTTN"){
 	$ttn = $_POST["ttn"];
@@ -474,8 +501,8 @@ if($paction=="start_multiitem"){
 	$row = mysql_fetch_assoc($resp);
 	$page = $row;
 	$itemadddate = mktime (date("G") ,date("i") ,date("s") , date("m")  ,date("d"),date("Y"));
-	$query = "INSERT INTO items (name, prior, tmp, recc, page_show, itemadddate, folder, parent, galtype) 
-	VALUES ('$page[name]', 0, 0, 0, 1, $itemadddate, 0,  $page[id], 1 )";
+	$query = "INSERT INTO items (name, prior, tmp, recc, page_show, itemadddate, folder, parent, galtype, is_multi) 
+	VALUES ('$page[name]', $page[prior], 0, 0, 1, $itemadddate, 0,  $page[id], 1, 2 )";
 	$resp = mysql_query($query);
 	$query = "select * from items order by id desc limit 0,1";
 	$resp = mysql_query($query);
@@ -556,13 +583,35 @@ if($paction=="getjsonpostdata"){
 }
 //**************
 if($paction=="delete_item_form_recc"){
+	$pid = $_POST["pid"];
+	clear_recc_item($pid);
+}
+//**************
+function clear_recc_item($pid){
+	$query = "select * from items where id=$pid";
+	//echo $query;
+	$resp = mysql_query($query);
+	$itemRow = mysql_fetch_assoc($resp);
+	//**************
+	$query = "select * from images where parent=$itemRow[id] ";
+	$resp = mysql_query($query);
+	while($row=mysql_fetch_assoc($resp)){
+		$respo = mysql_query("delete from images where id=$row[id]");
+		if(file_exists("../loadimages/$row[link]")){
+			unlink("../loadimages/$row[link]");
+		}
+	}
+	//**************
 	$query = "delete from items where id=$pid  ";
 	$resp = mysql_query($query);
 }
 //**************
 if($paction=="delete_item_recc"){
-	$query = "delete from items where recc=1  ";
-	$resp = mysql_query($query);
+	$query = "select * from items where recc=1  ";
+	$resp = mysql_query($resp);
+	while($row=mysql_fetch_assoc($resp)){
+		clear_recc_item($row["id"]);
+	}
 	$query = "delete from items where tmp=1  ";
 	$resp = mysql_query($query);
 }
@@ -849,6 +898,11 @@ if($paction=="save_myitems_prior"){
 				$pid = $row["parent"];
 			}
 			$resp = mysql_query("update items set prior=$sprior where id=$v");
+			$aresp = mysql_query("select is_multi from items where id=$v");
+			$arow = mysql_fetch_assoc($aresp);
+			if($arow["is_multi"]==1){
+				$resp = mysql_query("update items set prior=$sprior where parent=$v");
+			}
 			$sprior += 10;
 		}
 	}
@@ -1003,6 +1057,18 @@ if ($paction=="toogle_page_show_save") {
 	$row["page_show"]=!$row["page_show"];
 	if(!$row["page_show"]) $row["page_show"] = "0";
 	$query = "update items set page_show=$row[page_show] where id=$pid ";
+	//echo $query."<br/>";
+	$resp = mysql_query($query);
+}
+//**************
+if ($paction=="toogle_rests_show_save") {
+	$query = "select * from items where id=$pid ";
+	//echo $query."<br/>";
+	$resp = mysql_query($query);
+	$row = mysql_fetch_assoc($resp);
+	$row["is_rests"]=!$row["is_rests"];
+	if(!$row["is_rests"]) $row["is_rests"] = "0";
+	$query = "update items set is_rests=$row[is_rests] where id=$pid ";
 	//echo $query."<br/>";
 	$resp = mysql_query($query);
 }
@@ -1342,8 +1408,25 @@ if($paction=="edit_agr_post"){
 	//echo "$query";
 }
 //**************
-
-
+if($paction=="restsOnOff"){
+	$rests = $_POST["rests"];
+	if($rests=="on"){
+		$resp = mysql_query("update pages set cont='1' where name='rests'  ");
+	}else{
+		$resp = mysql_query("update pages set cont='0' where name='rests'  ");
+	}
+}
+//**************
+if($paction=="updateSiteSettingsPhone"){
+	$phone = trim($_POST["phone"]);
+	$resp = mysql_query("update pages set cont='$phone' where name='phone'  ");
+}
+//**************
+if($paction=="updateSiteSettingsEmail"){
+	$email = trim($_POST["email"]);
+	$resp = mysql_query("update pages set cont='$email' where name='rec'  ");
+}
+//**************
 
 
 

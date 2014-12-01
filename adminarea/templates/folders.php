@@ -155,7 +155,7 @@ if(!$folder) $folder="0";
   <tr>
     <td width="250" height="35" valign="top" class="folders_td_left">Активировать фильтр</td>
     <td valign="top"><input type="checkbox" id="cb_active_filter" onchange="active_filter(this, <?  echo $row["id"]; ?>)"></td>
-    <td valign="top" class="folders_td_folder_icon" id="td_folder_folder_icon"><div id="div_active_filter_<?  echo $row["id"]; ?>" style="height:300px;"></div></td>
+    <td valign="top" class="folders_td_folder_icon" id="td_folder_folder_icon">asd<div id="div_active_filter_<?  echo $row["id"]; ?>" style="height:300px;"></div></td>
     <td>&nbsp;</td>
   </tr>
   <tr>

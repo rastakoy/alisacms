@@ -20,6 +20,7 @@ function __filt_get_simple_filters_keys(  $id  ){
 	foreach(  $itmass as $key=>$val  ){
 		$sitmass = explode(  "===", $val  );
 		//echo "<pre>"; print_r(  $sitmass  ); echo "</pre>";
+		$sitmass[7] = trim($sitmass[7]);
 		if(  $sitmass[7] == "alisa_activefilter"  ){
 			$retmass[$count][0] = $sitmass[1];
 			$retmass[$count][1] = $sitmass[3];
@@ -290,8 +291,11 @@ function __mtm_get_mtm_cont($id){
 //*****************************************************
 function __mtm_has_mtm($id){
 	if(!$id) return false;
-	$resp = mysql_query("select * from items where id=$id");
+	$query = "select * from items where id=$id";
+	//echo $query;
+	$resp = mysql_query($query);
 	$row = mysql_fetch_assoc($resp);
+	//echo "<pre>"; print_r($row); echo "</pre>";
 	if($row["mtm"]){
 		return $row["id"];
 	} else {

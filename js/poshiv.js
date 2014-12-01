@@ -1,0 +1,3 @@
+function showPoshiv(){
+	alert("ok");
+}

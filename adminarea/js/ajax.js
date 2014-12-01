@@ -169,6 +169,7 @@ function getiteminfo_save(itemid){
 						npaction += "&" + post_object[i][0] + "=" + document.getElementById(post_object[i][1]).value;
 					}
 				}
+				//!!!!!!!!!!!!!!!!!!!!!!!!
 				//alert(cur_item_id + ":::" + npaction); //return;
 				$.ajax({
 					type: "POST",
@@ -474,6 +475,25 @@ function show_news(){
 
 //FOLDERS FUNCTIONS
 //******************************
+function clear_item_recc(pid){
+	var paction = "paction=delete_item_form_recc&pid="+pid;
+	if (confirm("Удалить запись из корзины?")) {
+		//alert("Ok"+cur_simgid);
+		$.ajax({
+			type: "POST",
+			url: __ajax_url,
+			data: paction,
+			success: function(html) {
+				//alert(html);
+				document.getElementById('divinfo').innerHTML += "Запись удалена<br/>\n"; //html;
+				show_ritems("recc");
+				//document.getElementById('divinfo').innerHTML += html;
+				//images_get_images();
+			}
+		});
+	}
+}
+//******************************
 function delete_item_recc(){
 	if (confirm("Удалить все записи из корзины?")) {
 		//alert("Ok"+cur_simgid);
@@ -500,7 +520,7 @@ function delete_item_form_recc(difr_id){
 			url: __ajax_url,
 			data: "paction=delete_item_form_recc&id="+difr_id,
 			success: function(html) {
-				//alert(html);
+				alert(html);
 				document.getElementById('divinfo').innerHTML += "Произведено удаление из корзины записи №"+difr_id+"<br/>\n"; //html;
 				show_ritems("recc");
 				//document.getElementById('divinfo').innerHTML += html;
@@ -1434,6 +1454,18 @@ function addLogo(addLogoId){
 	
 }
 //******************************
+function toogle_rests_show_save(restsid){
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: "paction=toogle_rests_show_save&id="+restsid,
+		success: function(html) {
+			//alert(html);
+			//images_get_images();
+		}
+	});
+}
+//******************************
 function toogle_page_show_save(glazid){
 	$.ajax({
 		type: "POST",
@@ -2051,4 +2083,52 @@ function delete_select_items(){
 		});
 	}
 }
+//******************************
+function restsOnOff(){
+	var obj = document.getElementById("restsOnOff_id");
+	if(obj.checked){
+		paction = "paction=restsOnOff&rests=on";
+	}else{
+		paction = "paction=restsOnOff&rests=off";
+	}
+	$.ajax({
+			type: "POST",
+			url: __ajax_url,
+			data: paction,
+			success: function(html) {
+				//alert(html);
+			}
+		});
+}
+//******************************
+function updateSiteSettingsPhone(){
+	var phone=document.getElementById("updateSiteSettingsPhone").value;
+	paction = "paction=updateSiteSettingsPhone&phone="+phone;
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: paction,
+		success: function(html) {
+			alert("Сохранено");
+		}
+	});
+}
+//******************************
+function updateSiteSettingsEmail(){
+	var email=document.getElementById("updateSiteSettingsEmail").value;
+	paction = "paction=updateSiteSettingsEmail&email="+email;
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: paction,
+		success: function(html) {
+			//alert(html);
+			alert("Сохранено");
+		}
+	});
+}
+//******************************
+
+//******************************
+
 //******************************

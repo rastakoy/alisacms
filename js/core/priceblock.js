@@ -4,8 +4,8 @@ function __pb_changeQtty(obj, aqtty){
 	if(obj.max < obj.value*1) {
 		obj.value = obj.max;
 	}
-	if(obj.value < .05) {
-		obj.value = .05;
+	if(obj.value < 1) {
+		obj.value = 1;
 	}
 	if(aqtty)
 		paction = "ajax=changeSborkaQtty&itemId="+itemId;
@@ -19,25 +19,47 @@ function __pb_changeQtty(obj, aqtty){
 		success: function(html) {
 			//alert(html);
 			myobj = eval("("+html+")");
-			myobj.onStore = myRound(myobj.onStore*1, 2);
-			myobj.qtty = myRound(myobj.qtty*1, 2);
-			sumQtty = myRound(myobj.onStore + myobj.qtty, 2);
-			if(myobj.qtty<myobj.min) {
-				myobj.onStore = myobj.onStore*1-(1-myobj.qtty);
-				myobj.qtty = .05;
-				//alert(myobj.onStore);
+			if(myobj.onStore!="hide" && myobj.onStore!="show"){
+				myobj.onStore = myRound(myobj.onStore*1, 2);
+				myobj.qtty = myRound(myobj.qtty*1, 2);
+				sumQtty = myRound(myobj.onStore + myobj.qtty, 2);
+				if(myobj.qtty<myobj.min) {
+					myobj.onStore = myobj.onStore*1-(1-myobj.qtty);
+					myobj.qtty = 1;
+					//alert(myobj.onStore);
+				}
 			}
-			if(myobj.discPrice)
+			if(myobj.discPrice){
 				document.getElementById("itemPrice").innerHTML = myobj.discPrice+" грн.";
-			else
+			}else{
 				document.getElementById("itemPrice").innerHTML = myobj.price+" грн.";
+			}
 			document.getElementById("itemItogo").innerHTML = myobj.sum;
 			//if(document.getElementById("qttyItem_"+myobj.itemId).value==""){
 			//	alert("myobj.qtty="+myobj.qtty);
 				document.getElementById("qttyItem_"+myobj.itemId).value = myobj.qtty;
 			//}
 			document.getElementById("qttyItem_"+myobj.itemId).max = myobj.qttyMax;
-			document.getElementById("onStore").innerHTML = myobj.onStore; //  / 100;
+			if(myobj.onStore!="hide" && myobj.onStore!="show"){
+				document.getElementById("onStore").innerHTML = myobj.onStore; //  / 100;
+			}else{
+				if(myobj.onStore=="show"){
+					document.getElementById("onStore").innerHTML = "есть";
+					myobj.qttyMax = 1000;
+					document.getElementById("basket_icon").style.display = "";
+					document.getElementById("basket_button").style.display = "";
+					document.getElementById("qttyItem_"+myobj.itemId).style.display = "";
+				}else{
+					document.getElementById("onStore").innerHTML = "нет";
+					document.getElementById("basket_icon").style.display = "none";
+					document.getElementById("basket_button").style.display = "none";
+					document.getElementById("qttyItem_"+myobj.itemId).style.display = "none";
+					document.getElementById("itemItogo").innerHTML = "";
+				}
+			}
+			if(document.getElementById("spanEdiz")){
+				document.getElementById("spanEdiz").innerHTML = myobj.ediz;
+			}
 			if(myobj.id){
 				document.getElementById("basket_icon").style.backgroundImage = "url(/images/basket_full.gif)";
 				document.getElementById("basket_button").innerHTML = "В корзине";
@@ -47,17 +69,20 @@ function __pb_changeQtty(obj, aqtty){
 				document.getElementById("basket_button").innerHTML = "Купить";
 				document.getElementById("basket_button").href = "javascript:add_to_r()";
 			}
-			if(sumQtty>myobj.qttyMax*1){
-				alert(myobj.onStore*1+myobj.qtty*1+" :: "+myobj.qttyMax*1)
-				document.getElementById("basket_icon").style.display = "none";
-				document.getElementById("basket_button").style.display = "none";
-				document.getElementById("qttyItem_"+myobj.itemId).style.display = "none";
-				document.getElementById("itemItogo").innerHTML = "";
-				document.getElementById("onStore").innerHTML = "нет";
-			} else {
-				document.getElementById("basket_icon").style.display = "";
-				document.getElementById("basket_button").style.display = "";
-				document.getElementById("qttyItem_"+myobj.itemId).style.display = "";
+			//if()
+			if(myobj.onStore!="hide" && myobj.onStore!="show"){
+				if(sumQtty>myobj.qttyMax*1){
+					//alert(myobj.onStore*1+myobj.qtty*1+" :: "+myobj.qttyMax*1)
+					document.getElementById("basket_icon").style.display = "none";
+					document.getElementById("basket_button").style.display = "none";
+					document.getElementById("qttyItem_"+myobj.itemId).style.display = "none";
+					document.getElementById("itemItogo").innerHTML = "";
+					document.getElementById("onStore").innerHTML = "нет";
+				} else {
+					document.getElementById("basket_icon").style.display = "";
+					document.getElementById("basket_button").style.display = "";
+					document.getElementById("qttyItem_"+myobj.itemId).style.display = "";
+				}
 			}
 			if(myobj.step){
 				document.getElementById("qttyItem_"+myobj.itemId).step = myobj.step;

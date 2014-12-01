@@ -8,7 +8,7 @@ function show_mtm($parent, $frow){
 	$ret = "";
 	$next=false;
 	$ret .= "<select name=\"folder_filter\" id=\"folder_filter\" class=\"folder_select\" style=\"margin-bottom: 10px;\">";
-	$query = " select * from mtm_filter where parent=$parent ";
+	$query = " select * from mtm_filter where parent=$parent order by prior asc ";
 	$resp = mysql_query($query);
 	while($row = mysql_fetch_assoc($resp)){
 		$ret .= "<option value=\"$row[id]\"  ";

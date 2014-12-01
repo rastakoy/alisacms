@@ -47,8 +47,20 @@ if($paction=="getPriceDiapason") {
 	if($my_filter){
 		$sfdq = __mtm_convert_session_to_simple_filter($_SESSION["simpleFilter"], $my_filter);
 	}
+	if($_SESSION["filterNalichie"]=="nal"){
+		$isnal = " && kolvov>0 ";
+		//echo "isnal=$isnal";
+	}
+	if($_SESSION["filterSpec"]!=""){
+		$spec = __mtm_convert_filterSpec_to_simple_filter($_SESSION["filterSpec"]);
+		//echo "isnal=$isnal";
+	}
+	if($_SESSION["mtmfilter"]!=""){
+		$mtmquery = __mtm_convert_session_to_multi_filter($_SESSION);
+		//echo $mtmquery;
+	}
 	$query = "select pricedigit from items where pricedigit>=".$_POST["min"]." && pricedigit<=".$_POST["max"]." ";
-	$query .= " && parent=".$_POST["parent"]." && folder=0 $sfdq $dop_query order by pricedigit ASC  ";
+	$query .= " && parent=".$_POST["parent"]." && folder=0 $sfdq $pdia $isnal $spec $mtmquery $dop_query order by pricedigit ASC  ";
 	$resp = mysql_query($query);
 	$count = mysql_num_rows($resp);
 	$last = substr($count, strlen($count)-1, 1 );
@@ -94,6 +106,8 @@ if($paction=="clearFilter") {
 	$_SESSION["simpleFilter"] = "";
 	$_SESSION["filterNalichie"] = "";
 	$_SESSION["filterSpec"] = "";
+	$_SESSION["mtmfilter"] = "";
+	$_SESSION["sort"] = "";
 }
 //*********************************************
 ?>

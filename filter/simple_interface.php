@@ -21,8 +21,6 @@ if($show_simple_filter){ ?>
 echo "<div class=\"leftName\"><span>Параметры</span></div>"; 
 //**************************************
 echo "<div id=\"\" class=\"mtm_v2_level\" style=\"padding-bottom:10px;\" >";
-echo "<span class=\"span_mtm\" style=\"float:none;\" ";
-echo "><b></b></span>";
 echo "<span class=\"span_mtm\" >";  
 echo "<input onClick=\"__sfilter_setFilterNalichie('all');\" type=\"checkbox\" value=\"1\" id=\"filterShowWithoutNal\" ";
 if($_SESSION["filterNalichie"]=="all" || $_SESSION["filterNalichie"]==""){ echo " checked "; }
@@ -97,7 +95,8 @@ foreach ($mass as $key=>$val){
 		while($srow = mysql_fetch_assoc($sresp)){
 			$flink = __fp_create_folder_way("items", $srow["id"], 1);
 			$flink = preg_replace(  "/\/$/", "", $flink  );
-			$dqquery = "select * from $vmass[4] where parent=$__page_row[id] && $vmass[1]='$flink' $dop_query ";
+			$parents = __mtm_convert_parents_to_simple_filter($__page_row["id"]);
+			$dqquery = "select * from $vmass[4] where id $parents && $vmass[1]='$flink' $dop_query ";
 			//echo "$dqquery<br/><br/>\n";
 			$dqresp = mysql_query($dqquery);
 			if(  mysql_num_rows($dqresp)  >  0  ){
@@ -144,7 +143,7 @@ foreach ($mass as $key=>$val){
 </select>
  */ 
 //print_r($_SESSION);
-echo "<a style=\"font-size: 11px;font-weight: bold;color: #000000;text-decoration: none;\" id=\"aclear_filter\" href=\"javascript:__sfilter_clearFilter()\">Очистить фильтр</a>";
+//echo "<a style=\"font-size: 11px;font-weight: bold;color: #000000;text-decoration: none;\" id=\"aclear_filter\" href=\"javascript:__sfilter_clearFilter()\">Очистить фильтр</a>";
 ?>
 <script>
 //**************************************

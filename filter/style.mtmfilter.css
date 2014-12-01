@@ -11,9 +11,10 @@ div#div_mtmfilter{
 div#mtmfilter_cont{
 /*************************/
 	color: #000000;
-	background-color: #E2E2E2;
+	background-color: #FFFFFF;
 	padding-bottom: 20px;
-	
+	padding-left: 10px;
+	line-height: 20px;
 }
 div#mtmfilter_cont span.span_mtm{
 /******************/
@@ -28,7 +29,7 @@ div#mtmfilter_cont span.span_mtm{
 div#mtmfilter_cont_1{
 /*************************/
 	color: #000000;
-	background-color: #E2E2E2;
+	background-color: #FFFFFF;
 	padding-bottom: 0px;
 	
 }

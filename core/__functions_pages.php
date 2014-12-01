@@ -305,12 +305,14 @@ function __fp_create_nav_way_02($table, $id, $show=0){
 		foreach ($mass as $key=>$val){
 			if($key>=0) {
 				//if($key!=count($mass)-1) $rv.= "<a href=\"".__fp_create_folder_way("items_pages", $val["id"], 1)."\">";
-				if($val["name"]) {
+				if($val["name"] && $val['is_multi']!=2) {
 					if($key != count($mass)-1) {
 						$rv .= "<span typeof=\"v:Breadcrumb\"><a href=\"".__fp_create_folder_way($table, $val["id"], 1)."\"";
 						$rv .= " rel=\"v:url\" property=\"v:title\">";
 						$rv .= $val["name"];
-						$rv .= "</a> › ";
+						$rv .= "</a>";
+						if($val['is_multi']!=1)
+							$rv .= " › ";
 						$rv.="</span>";
 					} else {
 						$rv .= "<span typeof=\"v:Breadcrumb\">";

@@ -8,7 +8,7 @@ require_once("../core/__functions_tree.php");
 require_once("../core/__functions_images.php");
 dbgo();
 require_once("__class_csvToArray.php"); // «агрузка файла библиотеки
-$csv_class =& new csvToArray("csv_class"); //ќбъ€вление класса csv 
+$csv_class = new csvToArray("csv_class"); //ќбъ€вление класса csv 
 
 eval(strip_get_vars_eval($HTTP_GET_VARS));
 eval(strip_post_vars_eval($HTTP_POST_VARS));

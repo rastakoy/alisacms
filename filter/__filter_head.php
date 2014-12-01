@@ -6,6 +6,8 @@ if($_SESSION["oldlevel"]!=$__page_row["id"]){
 	$_SESSION["simpleFilterSort"] = "";
 }
 //***********************************************
+//print_r($gets);
+//echo count($gets);
 if($gets) {
 	$gv = explode("=", $gets);
 	if($gv[0]=="fclear" && $gv[1]=="1"){

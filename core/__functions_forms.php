@@ -598,7 +598,11 @@ function get_item_multiitem($id, $self=false){
 function __ff_reload_single_item( $id, $multidiv=false ){
 	$ret = "";
 	//$ret .= "<table><tr><td>";
-	
+	//********************************
+	$globalRestsResp = mysql_query("select * from pages where name='rests'");
+	$globalRestsRow = mysql_fetch_assoc($globalRestsResp);
+	$globalRests = $globalRestsRow['cont'];
+	//********************************
 	$resp = mysql_query("select * from items where id=$id");
 	$row = mysql_fetch_assoc($resp);
 	$rowpp=$row;
@@ -653,6 +657,13 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 			$ret .= "\"  >";
 		}
 		//*********************
+		if(  $row["recc"] == 1  ){ 
+			$ret .= "<a href=\"javascript:\" title=\"Удалить запись из корзины\"><img 
+			src=\"images/green/myitemname_popup/delete_item.gif\" id=\"imgoptions_$row[id]\" 
+			width=\"16\" height=\"16\" border=\"0\"  align=\"right\" 
+			style=\"margin-right:5px;cursor:pointer;margin-top:5px;\" onClick=\"clear_item_recc($row[id])\" ></a>";
+		}
+		//*********************
 		if(  $row["recc"] != 1  ){ 
 			$ret .= "<a href=\"javascript:\" title=\"Удалить запись\"><img 
 			src=\"images/green/myitemname_popup/delete_item.gif\" id=\"imgoptions_$row[id]\" 
@@ -683,7 +694,8 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 			} else {
 				$ret .= "<div style=\"float:right;width:16px;margin-right:5px;margin-left:3px;\">&nbsp;</div>";
 			}
-			if($roweltype["name"] == "items"){
+			//if($roweltype["name"] == "items"){
+			if(preg_match("/^items-?/", $roweltype["name"]) && $globalRests=='1'){
 				//*****************
 				$ret .= "<div style=\"float:right;width:40px;margin-right:5px;margin-top:8px;\"><b>".round($row["kolvov"], 2)."</b></div>";
 				$ret .= "<div style=\"float:right;width:16px;margin-right:5px;margin-top:5px;\"><img src=\"images/green/myitemname_popup/rests_basket.gif\"
@@ -728,7 +740,8 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 			$ret .= "</a>";
 		}
 		//*********************
-		if($roweltype["name"] == "items" || $roweltype["name"] == "news"){
+		//if($roweltype["name"] == "items" || $roweltype["name"] == "news"){
+		if(preg_match("/^items-?/", $roweltype["name"]) || $roweltype["name"] == "news"){
 			if($multidiv) {
 				$ret .= "<img src=\"images/green/myitemname_popup/spacer16x16.gif\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
 			} else {
@@ -742,7 +755,8 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 			}
 		}
 		//*********************
-		if($roweltype["name"] == "items"){
+		//if($roweltype["name"] == "items"){
+		if(preg_match("/^items-?/", $roweltype["name"])){
 			if($multidiv) {
 				$ret .= "<img src=\"images/green/myitemname_popup/spacer16x16.gif\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
 			} else {
@@ -756,7 +770,8 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 			}
 		}
 		//*********************
-		if($roweltype["name"] == "items"){
+		//if($roweltype["name"] == "items"){
+		if(preg_match("/^items-?/", $roweltype["name"])){
 			if($multidiv) {
 				$ret .= "<img src=\"images/green/myitemname_popup/spacer16x16.gif\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
 			} else {
@@ -770,7 +785,8 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 			}
 		}
 		//*********************
-		if($roweltype["name"] == "items"){
+		//if($roweltype["name"] == "items"){
+		if(preg_match("/^items-?/", $roweltype["name"])){
 			if($multidiv) {
 				$ret .= "<img src=\"images/green/myitemname_popup/spacer16x16.gif\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
 			} else {
@@ -782,6 +798,16 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 				}
 				$ret .= "</a>";
 			}
+		}
+		//**********************************************************************************
+		if($roweltype["name"] == "items" && $globalRests=='0'){ 
+			$ret .= "<a href=\"javascript:toggle_rests_show($row[id])\" title=\"Товар в наличие\">";
+			if($row["is_rests"]==1){
+				$ret .= "<img src=\"images/green/myitemname_popup/rests.gif\" id=\"rests_$row[id]\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
+			} else {
+				$ret .= "<img src=\"images/green/myitemname_popup/rests_no.gif\" id=\"rests_$row[id]\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" style=\"margin-right:5px;\">";
+			}
+			$ret .= "</a>";
 		}
 		//**********************************************************************************
 		if($roweltype["name"] != "orders" && $roweltype["name"] != "alisagoo"){ 
@@ -842,7 +868,8 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 			}
 		}
 		//**********************************************************************************
-		if($roweltype["name"] == "items"){
+		//if($roweltype["name"] == "items"){
+		if(preg_match("/^items-?/", $roweltype["name"])){
 			if($multidiv) {
 				$ret .= "<a href=\"javascript:\" title=\"Добавить блок мультизаписи\">";
 				$ret .= "<img src=\"images/green/myitemname_popup/add_record.gif\" width=\"16\" height=\"16\" border=\"0\"  align=\"absmiddle\" 

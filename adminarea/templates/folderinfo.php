@@ -408,7 +408,35 @@ echo "<div class=\"asdqwe\" style=\"padding-left:20px;padding-top:5px;font-weigh
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Отмеченные: 
 <a href=\"javascript:delete_select_items()\" style=\"color:#B90000;\">Удалить</a></div>";
-?>
+if($id=='0'){ ?>
+	<br/><br/><b style="font-size:14px;">Основные настройки</b>
+	<div id="adminGlobalSettings"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<?  $restrResp = mysql_query("select * from pages where name='rests' ");
+			$restsRow = mysql_fetch_assoc($restrResp); 
+			//print_r($restsRow); ?>
+			<td class="tdGlobalSettings" width="300">Включить/выключить учет остатков на складе</td>
+			<td class="tdGlobalSettings" width=""><input type="checkbox" id="restsOnOff_id" onclick="restsOnOff()" <? if($restsRow['cont']=='1') echo " checked "; ?> /></td>
+			<td class="tdGlobalSettings">&nbsp;</td>
+		</tr>
+		<tr>
+			<?  $restrResp = mysql_query("select * from pages where name='rec' ");
+			$restsRow = mysql_fetch_assoc($restrResp); 
+			//print_r($restsRow); ?>
+			<td class="tdGlobalSettings" width="300">Ваш е-mail для уведомлений</td>
+			<td class="tdGlobalSettings" width=""><input type="text" style="width: 200px;" value="<?=$restsRow['cont']?>" id="updateSiteSettingsEmail" /></td>
+			<td class="tdGlobalSettings"><a href="javascript:updateSiteSettingsEmail()">ok</a></td>
+		</tr>
+		<tr>
+			<?  $restrResp = mysql_query("select * from pages where name='phone' ");
+			$restsRow = mysql_fetch_assoc($restrResp); 
+			//print_r($restsRow); ?>
+			<td class="tdGlobalSettings" width="300">Ваш контактный телефон</td>
+			<td class="tdGlobalSettings" width=""><input type="text" style="width: 200px;" value="<?=$restsRow['cont']?>" id="updateSiteSettingsPhone" /></td>
+			<td class="tdGlobalSettings"><a href="javascript:updateSiteSettingsPhone()">ok</a></td>
+		</tr>
+	</table></div>
+<? } ?>
 <script>
 my_search_items = "qwerty";
 //alert("qaz");

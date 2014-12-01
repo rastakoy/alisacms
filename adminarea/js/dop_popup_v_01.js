@@ -208,6 +208,21 @@ function show_myitemblock(mib_obj_id){
 	getiteminfo(linker);
 }
 //*******************************************************************************************
+function toggle_rests_show(restid){
+	imgsrc = document.getElementById("rests_"+restid);
+	if(imgsrc.src.match(/rests\.gif$/)){
+		imgsrc.src =imgsrc.src.replace(/rests.\gif$/, 'rests_no.gif');
+		document.getElementById("span_myitemname_"+restid).style.color = "#666666";
+		toogle_rests_show_save(restid);
+		
+	} else {
+		imgsrc.src =imgsrc.src.replace(/rests_no.\gif$/, 'rests.gif');
+		document.getElementById("span_myitemname_"+restid).style.color = "#000000";
+		toogle_rests_show_save(restid);
+		
+	}
+}
+//*******************************************************************************************
 function toggle_page_show(glazid){
 	imgsrc = document.getElementById("glaz_"+glazid);
 	lnk = site+"adminarea/images/green/myitemname_popup/";
