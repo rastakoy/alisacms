@@ -11,7 +11,7 @@ function __modal(modalId, attrs){
 	if(typeof attrs != "object"){
 		var attrs = {};
 	}
-	if(!attrs.closeButton) attrs.closeButton = false;
+	if(!attrs.closeButton) attrs.closeButton = true;
 	if(!attrs.width) attrs.width = 400;
 	if(!attrs.height) attrs.height = 200;
 	if(!attrs.clickableBg) attrs.clickableBg = true;
