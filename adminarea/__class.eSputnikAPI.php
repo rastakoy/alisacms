@@ -2,22 +2,60 @@
 class eSputnikAPI{
 
 	private static $username = 'fruktstudio@gmail.com';
-	private static $password = 'dEee2<034d';
+	private static $password = '6f0O10840#';
 	private static $baseUrl = 'https://esputnik.com.ua/api/v1';
+	private static $fromName = 'test';
 	//private static $emailFrom = 'info@krasota-style.com.ua';
 	//private static $emailFrom = 'stylekrasota@gmail.com';
+	
+	function send_request($url, $json_value, $user, $password) {
+		//if(!$text || !$phone) return false;
+		//$value = array(
+		//	'from' => self::$fromName,
+		//	'text' => $text,
+		//	'phoneNumbers' => array($phone)
+		//);
+		//$json_value = json_encode($value);
+		
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($json_value));
+		curl_setopt($ch, CURLOPT_HEADER, 1);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/json', 'Content-Type: application/json'));
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch,CURLOPT_USERPWD, self::$username.':'.self::$password);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER, 1);
+		$output = curl_exec($ch);
+		curl_close($ch);
+		return $output;
+	}
+	
+	function sendSMS_curl($phone=false, $text=false){
+		if(!$text || !$phone) return false;
+		$user = 'fruktstudio@gmail.com';
+		$password = 'dEee2<034d';
+		$send_sms_url = 'https://esputnik.com.ua/api/v1/message/sms';
+		$from = 'lenta-dekor';
+		$text = $text;
+		$number = $phone;
+		$json_value = new stdClass();
+		$json_value->text = $text;
+		$json_value->from = $from;
+		$json_value->phoneNumbers = array($number);
+		return $this->send_request($send_sms_url, $json_value, $user, $password);
+	}
 	
 	function sendSMS($phone=false, $text=false){
 		//$phone = "0639054324";
 		//$phone = "0689220244";
-		$phone = "0681531027";
-		$text = "Вам смс с сообщением ттн";
+		//$phone = "0681531027";
+		//$phone = "0505732060";
+		if(!$text || !$phone) return false;
 		$value = array(
-			'from' => "test",
-			'text' => "send TTN",
+			'from' => self::$fromName,
+			'text' => $text,
 			'phoneNumbers' => array($phone)
 		);
-		print_r($value);
 		$json_value = json_encode($value);
 		$opts = array(
 			'http' => array(
@@ -33,7 +71,6 @@ class eSputnikAPI{
 		$url= self::$baseUrl.'/message/sms';
 		$file = file_get_contents($url, false, $context);
 		echo $file;
-		//return $file;
 	}
 	
 	/**

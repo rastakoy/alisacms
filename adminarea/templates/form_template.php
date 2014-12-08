@@ -221,10 +221,10 @@ foreach($mass as $key=>$val){
 				foreach($MI as $mik=>$miv){
 					$miv = explode("===", $miv);
 					if($miv[0]=="coder")
-						echo __ff_create_coder( $row );
+						echo __ff_create_coder( $row, $tmass[1] );
 				}
 			} else {
-				echo __ff_create_coder( $row );
+				echo __ff_create_coder( $row, $tmass[1] );
 			}
 		}
 		if($tmass[0]=="semp" && !$MI){

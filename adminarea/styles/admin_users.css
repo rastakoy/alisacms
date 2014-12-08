@@ -18,6 +18,15 @@
 	font-size: 11px;
 }
 /***********************/
+.user_phone{
+	line-height: 14px;
+}
+.uphone_input{
+	width:250px;
+	height:14px;
+	font-size: 11px;
+}
+/***********************/
 .user_email{
 	line-height: 14px;
 }

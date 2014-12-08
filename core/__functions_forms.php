@@ -45,8 +45,12 @@ function __ff_create_selectfromitems_many( $mass, $index, $postname, $comm="", $
 	return $ret;
 }
 //********************************************
-function __ff_create_coder( $mass ){
-	$ret  = "\n<tr><td width=\"200\" height=\"30\">Программный код</td>";
+function __ff_create_coder( $mass, $name ){
+	if($name!=""){
+		$ret  = "\n<tr><td width=\"200\" height=\"30\">$name</td>";
+	}else{
+		$ret  = "\n<tr><td width=\"200\" height=\"30\">Программный код</td>";
+	}
 	$ret .= "<td><textarea name=\"coder\" id=\"coder\" style=\"width:100%;height:250px;\" ";
 	$ret .= " onClick=\"item_pop_up_init=false\" >$mass[coder]</textarea></td>";
 	$ret .= "</tr>\n";
@@ -381,7 +385,7 @@ function __ff_querypostdata($item_type, $post){
 			} else {
 				if($key != "id" && $key != "saveblock" && $key != "usercomments"){
 					$post[$key]       	= preg_replace("/'/", "&rsquo;", $post[$key] );
-					$query = "update items set $key='".preg_replace("/~~~aspirand~~~/", "&", iconv("UTF-8", "CP1251", $post[$key]) )."' where id=$post[id]";
+					$query = "update items set $key='".preg_replace("/~~~plus~~~/", "+", preg_replace("/~~~aspirand~~~/", "&", iconv("UTF-8", "CP1251", $post[$key]) ) )."' where id=$post[id]";
 					if($key=="name") {
 						
 						//$query       	= preg_replace('/"/', "»", $query );
@@ -1355,7 +1359,7 @@ function __ff_reload_single_user( $id ){
 		
 		//*****************
 		$ret .= "<div id=\"div_myitemname_$row[id]\" class=\"div_myitemname\" ";
-		$ret .= "\" style=\"";
+		$ret .= "\" style=\"height:45px;";
 		if($row["reg"]==1 && $row["most_delete"]==0)
 			$ret .= "background-color:#DDE3DD;";
 		if($row["reg"]==2 && $row["most_delete"]==0)
@@ -1401,6 +1405,7 @@ function __ff_reload_single_user( $id ){
 						} else {
 							$ret .= "<span  class=\"user_fio\" id=\"edit_fio_$row[id]\">$row[fio]</span>";
 							$ret .= "<br/><span  class=\"user_email\" id=\"edit_email_$row[id]\">($row[email])</span>";
+							$ret .= "<br/><span  class=\"user_phone\" id=\"edit_phone_$row[id]\">$row[phone]</span>";
 						}
 					$ret .= "</td>";
 					//******************  Пароль  ********************

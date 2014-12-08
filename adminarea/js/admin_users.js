@@ -5,6 +5,7 @@ function __au_init_all(){
 	__au_init_discount();
 	__au_init_fio();
 	__au_init_email();
+	__au_init_phone();
 	__au_init_pass();
 }
 //****************************
@@ -25,6 +26,10 @@ function __au_save_data(){
 		__au_save_pass();
 		return false;
 	}
+	if(__au_init_active.id.match(/^edit_phone_/)  &&  cur_el.className!="uphone_input") {
+		__au_save_phone();
+		return false;
+	}
 }
 //****************************
 function __au_init_pass(){
@@ -33,6 +38,20 @@ function __au_init_pass(){
 			__au_init_active = this;
 			__au_init_active_value = this.innerHTML;
 			this.innerHTML = "<input type=\"text\" value=\"\" class=\"upass_input\" >";
+			this.firstChild.select();
+			this.firstChild.focus();
+		}
+	})
+}
+//****************************
+function __au_init_phone(){
+	$(".user_phone").click(function(){
+		if(!__au_init_active){
+			__au_init_active = this;
+			__au_init_active_value = this.innerHTML;
+			//__au_init_active_value = this.innerHTML.replace(/^\(/, "");
+			//__au_init_active_value = __au_init_active_value.replace(/\)$/, "")
+			this.innerHTML = "<input type=\"phone\" value=\""+__au_init_active_value+"\" class=\"uphone_input\" >";
 			this.firstChild.select();
 			this.firstChild.focus();
 		}
@@ -105,6 +124,26 @@ function __au_save_fio(){
 	__au_init_active_value = false;
 	//***********************
 	var paction = "paction=edit_user_fio&pid="+pid+"&value="+value;
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: paction,
+		success: function(html) {
+			//alert(html);
+			//show_ritems(cur_folder_id);
+		}
+	});
+}
+//****************************
+function __au_save_phone(){
+	var value = __au_init_active.firstChild.value;
+	$(__au_init_active).empty();
+	$(__au_init_active).append(value);
+	pid = __au_init_active.id.replace(/^edit_phone_/, "");
+	__au_init_active = false;
+	__au_init_active_value = false;
+	//***********************
+	var paction = "paction=edit_user_phone&pid="+pid+"&value="+value;
 	$.ajax({
 		type: "POST",
 		url: __ajax_url,

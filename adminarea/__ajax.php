@@ -41,6 +41,8 @@ $item_parent      	= $_POST["item_parent"];
 $item_price        	= iconv("UTF-8", "CP1251", $_POST["item_price"]);
 $item_conta       	= preg_replace("/~~~aspirand~~~/", "&", iconv("UTF-8", "CP1251", $_POST["item_conta"] ) );
 $item_conta       	= preg_replace("/~~~plus~~~/", "+", $item_conta );
+$coder					= preg_replace("/~~~aspirand~~~/", "&", iconv("UTF-8", "CP1251", $_POST["coder"] ) );
+$coder			       	= preg_replace("/~~~plus~~~/", "+", $coder );
 //$item_conta       				= preg_replace("/'/", "\\'", $item_conta );
 //$item_conta       	= preg_replace("/'/", "\'", $item_conta );
 $item_href_name	= iconv("UTF-8", "CP1251", $_POST["item_href_name"]);
@@ -297,6 +299,9 @@ if($paction=="edit_user_email"){
 	$resp = mysql_query("select * from users where id=".$_POST["pid"]);
 	$row = mysql_fetch_assoc($resp);
 	if($row["reg"]==1)  $resp = mysql_query(" update users set login='$value' where id=".$_POST["pid"]);
+}
+if($paction=="edit_user_phone"){
+	$resp = mysql_query(" update users set phone='$value' where id=".$_POST["pid"]);
 }
 if($paction=="edit_user_pass"){
 	$value = md5($value);
