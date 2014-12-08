@@ -1405,7 +1405,13 @@ function __ff_reload_single_user( $id ){
 						} else {
 							$ret .= "<span  class=\"user_fio\" id=\"edit_fio_$row[id]\">$row[fio]</span>";
 							$ret .= "<br/><span  class=\"user_email\" id=\"edit_email_$row[id]\">($row[email])</span>";
-							$ret .= "<br/><span  class=\"user_phone\" id=\"edit_phone_$row[id]\">$row[phone]</span>";
+							$ret .= "<br/><img src=\"images/green/icons/users_phone.jpg\" align=\"absmiddle\" style=\"margin-right:5px;\">";
+							$ret .= "<span  class=\"user_phone\" id=\"edit_phone_$row[id]\">";
+							if($row['phone']==''){
+								$ret .= "Телефон</span>";
+							}else{
+								$ret .= $row['phone']."</span>";
+							}
 						}
 					$ret .= "</td>";
 					//******************  Пароль  ********************
