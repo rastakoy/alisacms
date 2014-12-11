@@ -1,7 +1,12 @@
 <?
 //************************************************************
 function __fp_sendMail_v2($to,$from_mail,$from_name,$subject,$mess,$file_names=false) {
-	$bound = "frukt-studio-biz-oksanalenta-1234";
+	global $site;
+	$site_m = preg_replace("/^http:\/\//", "", $site);
+	$site_m = preg_replace("/^www\./", "", $site_m);
+	$site_m = preg_replace("/\..*$/", "", $site_m);
+	
+	$bound = "frukt-studio-biz-$site_m";
 	$message  = "";
 	
 	$message .= "--$bound\n";
@@ -41,7 +46,7 @@ function __fp_sendMail_v2($to,$from_mail,$from_name,$subject,$mess,$file_names=f
 	$headers  .=  "Subject: =?windows-1251?Q?-->$subject?=\n";
 	$headers  .=  "Content-Type: multipart/mixed; boundary=\"$bound\"\n";
 	
-	if(mail("$to", "$subject", $message, $headers) ) {
+	if(mail("$to", "-->$subject", $message, $headers) ) {
 		return true;
 	} else {
 		return false;

@@ -199,7 +199,11 @@ if($paction=="ao_postPrice"){
 	$header = getOrderQuery($order["userId"], $orderId);
 	//echo $header;
 	$file[0] = __fz_order_to_docx_admin_v2($orderId, $header." ".$html);
-	__fp_sendMail_v2($user["email"], "robot@oksanalenta.com.ua", "Оксаналента", "Заказ с сайта", "Заказ в прикрепленном файле", $file);
+	//*****************************************************
+	$resp = mysql_query("select * from pages where name='order_body'  ");
+	$order_body = mysql_fetch_assoc($resp);
+	$order_body = $order_body['cont'];
+	__fp_sendMail_v2($user["email"], "robot@oksanalenta.com.ua", "Оксаналента", "Заказ с сайта", $order_body, $file);
 	if(  file_exists($file[0])  ) unlink($file[0]);
 }
 if($paction=="ao_orderToWord"){
@@ -1126,6 +1130,13 @@ if ($paction=="toogle_sale_show_save") {
 	$resp = mysql_query($query);
 }
 //**************
+if ($paction=="fast_order_cont_save") {
+	$cont = preg_replace("/\\\\\\.*'/", "'", $cont);
+	$query = "update pages set cont='$cont' where name='order_body' ";
+	echo $query."<br/>";
+	$resp = mysql_query($query);
+}
+//**************
 if ($paction=="fast_cont_save") {
 	$cont = preg_replace("/\\\\\\.*'/", "'", $cont);
 	$query = "update items set cont='$cont' where id=$pid ";
@@ -1135,6 +1146,13 @@ if ($paction=="fast_cont_save") {
 //**************
 if ($paction=="get_fast_cont") {
 	$query = "select cont from items where id=$pid ";
+	$resp = mysql_query($query);
+	$row = mysql_fetch_assoc($resp);
+	echo $row["cont"];
+}
+//**************
+if ($paction=="get_fast_order_cont") {
+	$query = "select cont from pages where name='order_body'  ";
 	$resp = mysql_query($query);
 	$row = mysql_fetch_assoc($resp);
 	echo $row["cont"];
@@ -1432,8 +1450,32 @@ if($paction=="updateSiteSettingsEmail"){
 	$resp = mysql_query("update pages set cont='$email' where name='rec'  ");
 }
 //**************
+if($paction=="get_messanger_data"){ ?>
+<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+	<td height="34" width="300">Выберите сообщение для рассылки</td>
+	<td height="34"><select style="width:300px; height:30px;" id="selectMessanger">
+	<option value="">Выберите сообщение</option><?
+	$query = "select * from items where folder=1 && href_name='messanger' && parent=0 ";
+	$resp = mysql_query($query);
+	$row = mysql_fetch_assoc($resp);
+	$query = "select * from items where parent=$row[id] $dop_query order by prior asc" ;
+	echo $query;
+	$resp = mysql_query($query);
+	while($row=mysql_fetch_assoc($resp)){
+		echo "<option value=\"$row[id]\">$row[name]</option>\n";
+	}
+	?></select></td>
+</tr></table>
+<hr size="1" />
+<? }
+//**************
+if($paction=='start_messanger'){
+	$pid = $_POST['pid'];
+	$resp = mysql_query(" update users set is_send_email=1, is_send_id=$pid where isnews=1 ");
+}
+//**************
 
-
+//**************
 
 
 

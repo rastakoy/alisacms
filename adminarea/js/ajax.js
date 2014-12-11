@@ -1543,6 +1543,20 @@ function save_fast_cont(sfc_id){
 	});
 }
 //******************************
+function get_fast_order_cont(){
+	ppdata = "paction=get_fast_order_cont";
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: ppdata,
+		success: function(html) {
+			//alert(html);
+			fast_cont_html = html;
+			show_myitemblock_order_cont();
+		}
+	});
+}
+//******************************
 function get_fast_cont(gfc_id){
 	ppdata = "paction=get_fast_cont&id="+gfc_id;
 	$.ajax({

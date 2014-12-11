@@ -1,7 +1,11 @@
 <?
 //************************************************************
 function __fp_sendMail_v2($to,$from_mail,$from_name,$subject,$mess,$file_name=false) {
-	$bound = "frukt-studio-biz-1234";
+	global $site;
+	$site_m = preg_replace("/^http:\/\//", "", $site);
+	$site_m = preg_replace("/^www\./", "", $site_m);
+	$site_m = preg_replace("/\..*$/", "", $site_m);
+	$bound = "frukt-studio-biz-1234-$site_m";
 	$message  = "";
 	
 	$message .= "--$bound\n";

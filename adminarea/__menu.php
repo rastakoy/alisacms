@@ -42,7 +42,8 @@ class="amenu">Справка ???</a></strong></div>
 
 <!--<div class="menuitem"><a href="javascript:manage_configarator()" class="amenu">Конфигуратор</a></div>
 <div class="menuitem"><a href="javascript:show_filemanager_upload2('developers.php')" class="amenu">Производители</a></div>-->
-<div class="menuitem"><a href="javascript:show_filemanager_upload2('filemanager.php')" class="amenu">Файловый менеджер	</a></div>
+<div class="menuitem"><a href="javascript:show_filemanager_upload2('filemanager.php')" class="amenu">Файловый менеджер</a></div>
+<div class="menuitem"><a href="javascript:open_messanger()" class="amenu">Рассылка сообщений</a></div>
 
 <div class="menuitem"><strong>
 <a href="javascript:show_filemanager_upload2('out_file.php?of=manage_uploadp.php&title=Загрузка прайс-листа')" class="amenu">! Загрузка прайс-листа</a></strong></div> 

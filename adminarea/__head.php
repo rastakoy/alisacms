@@ -82,6 +82,8 @@
 <link href="js/modal/style.modal.css" rel="stylesheet" type="text/css" />
 <script src="js/sms.js"></script>
 
+<script src="js/messanger.js"></script>
+
 <link href="styles/style_myitems.css" rel="stylesheet" type="text/css" />
 <link href="styles/style.help.css" rel="stylesheet" type="text/css" />
 <link href="styles/myitemname_popup.css" rel="stylesheet" type="text/css" />

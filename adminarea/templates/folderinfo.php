@@ -435,6 +435,14 @@ if($id=='0'){ ?>
 			<td class="tdGlobalSettings" width=""><input type="text" style="width: 200px;" value="<?=$restsRow['cont']?>" id="updateSiteSettingsPhone" /></td>
 			<td class="tdGlobalSettings"><a href="javascript:updateSiteSettingsPhone()">ok</a></td>
 		</tr>
+		<tr>
+			<?  $restrResp = mysql_query("select * from pages where name='phone' ");
+			$restsRow = mysql_fetch_assoc($restrResp); 
+			//print_r($restsRow); ?>
+			<td class="tdGlobalSettings" width="300">Тело счета</td>
+			<td class="tdGlobalSettings" width=""><a href="javascript:get_fast_order_cont()">Изменить</a></td>
+			<td class="tdGlobalSettings">&nbsp;</td>
+		</tr>
 	</table></div>
 <? } ?>
 <script>

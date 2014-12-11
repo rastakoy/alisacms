@@ -377,6 +377,67 @@ function show_myitemblock_cont(sfc_id){
 	//*******************************
 }
 //*******************************************************************************************
+function show_myitemblock_order_cont(){
+	//clearInterval(mtout);
+	//alert("OK DBLClick");
+	a_obj = document.documentElement.getElementsByTagName('body')[0];
+	wwidth = a_obj.scrollWidth;
+	wheight = a_obj.scrollHeight;
+	wwwidth = document.body.clientWidth;
+	wwheight = document.body.clientHeight;
+	//*******************************
+	obj_m = document.getElementById("show_myitemblock_bg");
+	obj_m.style.width = wwidth+"px";
+	obj_m.style.height = wheight+"px";
+	obj_m.style.display="";
+	//*******************************
+	obj_w = document.getElementById("show_myitemblock_cont");
+	obj_w.style.width = (wwidth-100)+"px";
+	obj_w.style.height = (wwheight - 100)+"px";
+	obj_w.style.top = (20+document.body.scrollTop)+"px";
+	obj_w.style.left = (wwwidth/2-(wwidth-100)/2)+"px";
+	obj_w.style.display="";
+	//*******************************
+	//sfc_id = sfc_id.replace("istext_","");
+	//alert("sfc_id="+sfc_id);
+	//get_fast_cont(sfc_id);
+	obj_w.innerHTML = "<div id=\"fc_maskcont\" style=\"display:none\"></div><div id=\"inc_tadiv_imgs\" align=\"center\" style=\"display:none;\"><div class=\"inc_tavid_loadimgs\" id=\"file-uploader-fc\">asd</div><div id=\"fc_images_box\"></div></div><div  id=\"inc_tadiv\"><textarea name=\"fast_cont\" id=\"fast_cont\" style=\"width:550px;height:300px;\" >"+fast_cont_html+"</textarea></div><div align=\"center\" style=\"margin-top: 10px;\"><a href=\"javascript:save_fast_order_cont()\" class=\"inc_tadiv_saver_imgs\">Сохранить</a><a id=\"drophere\" href=\"javascript:cancel_fast_order_cont()\" class=\"inc_tadiv_saver_imgs\">Отменить</a></div>";
+	//<a href=\"javascript:start_insert_img()\" class=\"inc_tadiv_saver_imgs\">Тест</a>
+	document.getElementById("inc_tadiv_imgs").style.height = (wwheight-100-60+10)+"px";
+	tmce_width = wwidth-100-180;
+	tmce_height = wwheight-100-60;
+	tinymce_init();
+	document.getElementById("inc_tadiv").style.width = (wwidth-100-180)+"px";
+}
+//*******************************************************************************************
+function save_fast_order_cont(){
+	var fast_cont = tinyMCE.get('fast_cont').getContent();
+	tinyMCE.execCommand('mceToggleEditor',false,'fast_cont');
+	tinyMCE.execCommand('mceRemoveControl',true,'fast_cont');
+	tiny_init=false;
+	ppdata = "paction=fast_order_cont_save&cont=" + replace_spec_simbols(fast_cont);
+	//alert(ppdata);
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: ppdata,
+		success: function(html) {
+			//alert(html);
+			obj_m.style.display="none";
+			obj_w.style.display="none";
+		}
+	});
+}
+//*******************************************************************************************
+function cancel_fast_order_cont(){
+	var fast_cont = tinyMCE.get('fast_cont').getContent();
+	tinyMCE.execCommand('mceToggleEditor',false,'fast_cont');
+	tinyMCE.execCommand('mceRemoveControl',true,'fast_cont');
+	tiny_init=false;
+	obj_m.style.display="none";
+	obj_w.style.display="none";
+}
+//*******************************************************************************************
 function set_fc_mask_pos(){
 	//*******************************
 	obj_x = document.getElementById("fc_maskcont");
