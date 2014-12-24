@@ -401,11 +401,28 @@ function __aofm_addFlieldToDatabase(){
 				__aofm_editDatabase();
 			}
 			$("#DBManager").css("display","");
-			
-			//get_template(document.getElementById("folder_item_type").value);
 		}
 	});
 }
 //******************************
-
+function __aofm_deleteFlieldFromDatabase(name){
+	if (confirm("Удалить это поле \""+name+"\"?")) {
+		var paction = "paction=delete_field_from_database";
+		paction += "&name="+name;
+		//alert(paction);
+		$.ajax({
+			type: "POST",
+			url: "__ajax_of_form_maker.php",
+			data: paction,
+			success: function(html) {
+				if(html.match(/Произошла ошибка/gi)){
+					alert(html);
+				}else{
+					__aofm_editDatabase();
+				}
+				$("#DBManager").css("display","");
+			}
+		});
+	}
+}
 //******************************

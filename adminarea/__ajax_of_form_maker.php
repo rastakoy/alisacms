@@ -563,7 +563,8 @@ if($paction=="get_database"){
 		onmouseover="this.style.backgroundColor='#CCCCCC'"
 		onmouseout="this.style.backgroundColor='#FFFFFF'"
 		><?=$row['Field']?>
-		<img src="images/green/myitemname_popup/delete_item.gif" align="absmiddle" style="float:right;margin-left:10px;"  />&nbsp;
+		<img src="images/green/myitemname_popup/delete_item.gif" align="absmiddle" style="float:right;margin-left:10px;"
+		onClick="__aofm_deleteFlieldFromDatabase('<?=$row['Field']?>')"  />&nbsp;
 		<!--<img src="images/green/myitemname_popup/edit_item.gif" align="absmiddle" style="float:right;margin-left:10px;"  />&nbsp;-->
 		</div>
 	<? } }
@@ -589,7 +590,13 @@ if($paction=="add_field_to_database"){
 	if(!$resp) echo "Произошла ошибка";
 }
 //*************************
-
+//*************************
+if($paction=="delete_field_from_database"){
+	$name = $_POST['name'];
+	$query = "ALTER TABLE `items` DROP `$name` ";
+	$resp = mysql_query($query);
+	if(!$resp) echo "Произошла ошибка";
+}
 //*************************
 
 //*************************
