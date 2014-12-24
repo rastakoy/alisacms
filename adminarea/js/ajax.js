@@ -1543,6 +1543,20 @@ function save_fast_cont(sfc_id){
 	});
 }
 //******************************
+function get_fast_offert_cont(){
+	ppdata = "paction=get_fast_offert_cont";
+	$.ajax({
+		type: "POST",
+		url: __ajax_url,
+		data: ppdata,
+		success: function(html) {
+			//alert(html);
+			fast_cont_html = html;
+			show_myitemblock_offert_cont();
+		}
+	});
+}
+//******************************
 function get_fast_order_cont(){
 	ppdata = "paction=get_fast_order_cont";
 	$.ajax({
@@ -2104,6 +2118,23 @@ function restsOnOff(){
 		paction = "paction=restsOnOff&rests=on";
 	}else{
 		paction = "paction=restsOnOff&rests=off";
+	}
+	$.ajax({
+			type: "POST",
+			url: __ajax_url,
+			data: paction,
+			success: function(html) {
+				//alert(html);
+			}
+		});
+}
+//******************************
+function offertOnOff(){
+	var obj = document.getElementById("offertOnOff_id");
+	if(obj.checked){
+		paction = "paction=offertOnOff&offert=on";
+	}else{
+		paction = "paction=offertOnOff&offert=off";
 	}
 	$.ajax({
 			type: "POST",

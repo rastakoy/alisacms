@@ -13,6 +13,8 @@ function __fo_getOrderList($orderId){
 //*********************************
 function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 	
+	global $SMSSender;
+	
 	$calcRests = true;
 	$resp = mysql_query("select * from pages where name='rests'  ");
 	$row = mysql_fetch_assoc($resp);
@@ -42,8 +44,10 @@ function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 		$ret .= "<img src=\"images/green/myitemname_popup/word.gif\" width=\"16\" height=\"16\" border=\"0\" align=\"absmiddle\" style=\"margin-right:5px;\"></a>";
 		$ret .= "<a href=\"javascript:__ao_postPrice($order[id])\">";
 		$ret .= "<img src=\"images/green/icons/send_email.gif\" width=\"16\" height=\"16\" border=\"0\" align=\"absmiddle\" style=\"margin-right:5px;\"></a>";
-		$ret .= "<a href=\"javascript:showSMSWindow($order[id])\">";
-		$ret .= "<img src=\"images/green/icons/sms.gif\" width=\"16\" height=\"16\" border=\"0\" align=\"absmiddle\" style=\"margin-right:5px;\"></a>";
+		if($SMSSender=='on'){
+			$ret .= "<a href=\"javascript:showSMSWindow($order[id])\">";
+			$ret .= "<img src=\"images/green/icons/sms.gif\" width=\"16\" height=\"16\" border=\"0\" align=\"absmiddle\" style=\"margin-right:5px;\"></a>";
+		}
 		$ret .= "</td><td>";
 		$ret .= "““Õ: <input type=\"text\" id=\"orderTTN\" value=\"$order[TTN]\" />&nbsp; &nbsp;<a href=\"javascript:__ao_saveOrderTTN($order[id])\">ok</a>";
 		//$ret .= "<button>ŒÚÔ‡‚ËÚ¸ sms c ““Õ</button>";
@@ -91,6 +95,7 @@ function __fo_getOrder($val, $iAmUser=false, $toWord=false){
 				$mt = explode("===", $mt);
 				if($mt[1]!=""){
 					$nnn = __ff_get_itemstypes_rus_name_from_index($mt, $mtmass["id"]);
+					
 					$ret .= "<br/>$nnn - ".$good[$mt[1]];
 				}
 			}

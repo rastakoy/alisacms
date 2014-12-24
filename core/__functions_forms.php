@@ -986,7 +986,23 @@ function __ff_reload_single_item( $id, $multidiv=false ){
 	return $ret;
 }
 //**********************************************
-function __ff_get_textfield_fields( $field, $key ){
+function __ff_test_for_use($id, $name){
+	$query = "select * from itemstypes where id=$id ";
+	//echo $query;
+	$resp = mysql_query($query);
+	$row = mysql_fetch_assoc($resp);
+	$mass = explode("\n", $row['pairs']);
+	foreach($mass as $key=>$value){
+		$prega = "/=$name=/";
+		//echo $prega."\n";
+		if(preg_match($prega, $value)){
+			return false;
+		}
+	}
+	return true;
+}
+//**********************************************
+function __ff_get_textfield_fields( $field, $key, $id ){
 	$ret  = "<select name=\"fm_fields\" id=\"1_prm_$key\">";
 	$ret .= "	<option value=\"0\" "; 
 	if($selected=="0") $ret .= " selected "; 
@@ -994,14 +1010,18 @@ function __ff_get_textfield_fields( $field, $key ){
 	//$ret .= "</select>\n";
 	$query = "SHOW FIELDS FROM items";
 	$resp = mysql_query($query);
+	$count = 0;
 	while($row=mysql_fetch_assoc($resp)){
 		//print_r($row);
-		if(preg_match("/varchar/", $row["Type"])){
+		//echo "::".$key."::".__ff_test_for_use($index, $row['Field'])."::\n";
+		if(  (preg_match("/varchar/", $row["Type"]) && __ff_test_for_use($id, $row['Field'])) ||  
+		(preg_match("/varchar/", $row["Type"]) && $field == $row["Field"])  ){
 			//$ret .= "$row[Type] ";
 			$ret .= "<option value=\"$row[Field]\" ";
 			if($row["Field"]==$field)  $ret .= " selected ";
 			$ret .= ">$row[Field]</option>";
 		}
+		$count++;
 	}
 	$ret .= "</select>\n";
 	return $ret;
@@ -1090,7 +1110,7 @@ function __ff_get_selectfromitems_many_fields( $field, $key ){
 	return $ret;
 }
 //**********************************************
-function __ff_get_selectfromitems_fields( $field, $key ){
+function __ff_get_selectfromitems_fields( $field, $key, $id ){
 	$ret  = "<select name=\"fm_fields\" id=\"1_prm_$key\">";
 	$ret .= "	<option value=\"0\" "; 
 	if($selected=="0") $ret .= " selected "; 
@@ -1100,7 +1120,9 @@ function __ff_get_selectfromitems_fields( $field, $key ){
 	$resp = mysql_query($query);
 	while($row=mysql_fetch_assoc($resp)){
 		//print_r($row);
-		if(preg_match("/varchar/", $row["Type"])){
+		//if(preg_match("/varchar/", $row["Type"])){
+		if(  (preg_match("/varchar/", $row["Type"]) && __ff_test_for_use($id, $row['Field'])) ||  
+		(preg_match("/varchar/", $row["Type"]) && $field == $row["Field"])  ){
 				$ret .= "<option value=\"$row[Field]\" ";
 				if($row["Field"]==$field)  $ret .= " selected ";
 				$ret .= ">$row[Field]</option>";

@@ -53,12 +53,16 @@ function start_messanger(){
 	}else{
 		//alert("Рассылка будет производиться по ID " + obj.value);
 		ppdata = "paction=start_messanger&pid=" + obj.value;
-		alert(ppdata);
+		if(document.getElementById("isEmailTesting").checked){
+			ppdata += "&onemail="+document.getElementById("emailText").value;
+		}
+		//alert(ppdata);
 		$.ajax({
 			type: "POST",
 			url: __ajax_url,
 			data: ppdata,
 			success: function(html) {
+				//alert(html);
 				var inner = "<h1>Рассылка произведена</h1>";
 				obj_w.innerHTML = inner;
 				setTimeout("close_messanger()", 1000);
@@ -78,4 +82,15 @@ function close_messanger(){
 	obj_m.style.display="none";
 	obj_w.style.display="none";
 }
+//*************************************
+function toggleEmailShow(obj){
+	var et = document.getElementById("pEmailText");
+	if(obj.checked){
+		et.style.display = "";
+	}else{
+		et.style.display = "none";
+	}
+}
+//*************************************
+
 //*************************************

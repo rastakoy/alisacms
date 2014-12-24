@@ -1137,6 +1137,13 @@ if ($paction=="fast_order_cont_save") {
 	$resp = mysql_query($query);
 }
 //**************
+if ($paction=="fast_offert_cont_save") {
+	$cont = preg_replace("/\\\\\\.*'/", "'", $cont);
+	$query = "update pages set cont='$cont' where name='offert_cont' ";
+	echo $query."<br/>";
+	$resp = mysql_query($query);
+}
+//**************
 if ($paction=="fast_cont_save") {
 	$cont = preg_replace("/\\\\\\.*'/", "'", $cont);
 	$query = "update items set cont='$cont' where id=$pid ";
@@ -1153,6 +1160,13 @@ if ($paction=="get_fast_cont") {
 //**************
 if ($paction=="get_fast_order_cont") {
 	$query = "select cont from pages where name='order_body'  ";
+	$resp = mysql_query($query);
+	$row = mysql_fetch_assoc($resp);
+	echo $row["cont"];
+}
+//**************
+if ($paction=="get_fast_offert_cont") {
+	$query = "select cont from pages where name='offert_cont'  ";
 	$resp = mysql_query($query);
 	$row = mysql_fetch_assoc($resp);
 	echo $row["cont"];
@@ -1440,6 +1454,15 @@ if($paction=="restsOnOff"){
 	}
 }
 //**************
+if($paction=="offertOnOff"){
+	$rests = $_POST["offert"];
+	if($rests=="on"){
+		$resp = mysql_query("update pages set cont='1' where name='offert'  ");
+	}else{
+		$resp = mysql_query("update pages set cont='0' where name='offert'  ");
+	}
+}
+//**************
 if($paction=="updateSiteSettingsPhone"){
 	$phone = trim($_POST["phone"]);
 	$resp = mysql_query("update pages set cont='$phone' where name='phone'  ");
@@ -1452,8 +1475,8 @@ if($paction=="updateSiteSettingsEmail"){
 //**************
 if($paction=="get_messanger_data"){ ?>
 <table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
-	<td height="34" width="300">Выберите сообщение для рассылки</td>
-	<td height="34"><select style="width:300px; height:30px;" id="selectMessanger">
+	<td height="40" width="300">Выберите сообщение для рассылки</td>
+	<td height="40"><select style="width:300px; height:30px;" id="selectMessanger">
 	<option value="">Выберите сообщение</option><?
 	$query = "select * from items where folder=1 && href_name='messanger' && parent=0 ";
 	$resp = mysql_query($query);
@@ -1465,13 +1488,31 @@ if($paction=="get_messanger_data"){ ?>
 		echo "<option value=\"$row[id]\">$row[name]</option>\n";
 	}
 	?></select></td>
+</tr>
+<tr>
+	<td height="40" width="300">В режиме тестирования</td>
+	<td height="40"><input type="checkbox" id="isEmailTesting" onclick="toggleEmailShow(this)" /> 
+	<b id="pEmailText" style="display:none;">&nbsp;&nbsp;&nbsp;e-mail 
+	<input type="text" id="emailText" style="height:30px;" /></b></td>
 </tr></table>
 <hr size="1" />
 <? }
 //**************
 if($paction=='start_messanger'){
 	$pid = $_POST['pid'];
-	$resp = mysql_query(" update users set is_send_email=1, is_send_id=$pid where isnews=1 ");
+	$onEmail = $_POST['onemail'];
+	$resp = mysql_query(" truncate send_emails ");
+	if(!$_POST['onemail']){
+		$resp = mysql_query(" select * from users where isnews=1 && email!='' group by email  order by id asc ");
+	}
+	if(!$_POST['onemail']){
+		while($row=mysql_fetch_assoc($resp)){
+			$respo = mysql_query(" insert into send_emails (email, is_send_id) values ('$row[email]', $pid) ");
+		}
+	}else{
+		$respo = mysql_query(" insert into send_emails (email, is_send_id) values ('".$_POST['onemail']."', $pid) ");
+	}
+	//$resp = mysql_query(" update users set is_send_email=1, is_send_id=$pid where isnews=1 ");
 }
 //**************
 

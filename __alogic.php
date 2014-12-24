@@ -19,23 +19,23 @@ $ways = explode("/", $ways);
 if($ways[count($ways)-1]=="") array_pop($ways);
 if(substr($ways[count($ways)-1], 0, 1) == "[") { 
 	$gets =  substr(    $ways[count($ways)-1],    1,     strlen($ways[count($ways)-1])-2    );
-	//echo "gets=$gets";
+	echo "gets=$gets";
 	$ways[count($ways)-1] = "";
 	array_pop($ways);
 	$getsm  =explode("=", $gets);
 	if(count($getsm)>1){
 		if($getsm[0]=="g_login") $g_login = $getsm[1];
 	}
+	$gets=explode(";", $gets);
+	$getsTmp = array();
+	foreach ($gets as $key=>$val){
+		$a = explode("=", $val);
+		$getsTmp[$a[0]] = $a[1];
+	}
+	$gets = $getsTmp;
 }
-
-$gets=explode(";", $gets);
-$getsTmp = array();
-foreach ($gets as $key=>$val){
-	$a = explode("=", $val);
-	$getsTmp[$a[0]] = $a[1];
-}
-$gets = $getsTmp;
-echo "<pre>"; print_r($gets); echo "</pre>";
+//echo "gets=$gets";
+//echo "<pre>"; print_r($gets); echo "</pre>";
 
 
 //print_r($way_mass); exit;
@@ -76,6 +76,10 @@ if(count($ways) == 0 || $ways[0]==""){
 }
 $current = __fp_get_row_from_way(  $ways, "items"  );
 if(__fp_test_item_for_show($current["id"])) header("Location: /start/");
+if($current['parent']!=0){
+	$parentResp = mysql_query("select * from items where id=$current[parent] ");
+	$parent = mysql_fetch_assoc($parentResp);
+}
 //print_r($current);
 //print_r($ways);
 

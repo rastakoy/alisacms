@@ -1,10 +1,9 @@
 <?
-$test=0;
 $online=true;
 
 if ($online){
 $host="localhost";
-$dbname="oksanalenta";
+$dbname="teplo";
 $dbusername="root"; 
 $dbpassword=""; 
 //$tree_array[] = "items";
@@ -28,7 +27,7 @@ $my_left_limit = 3;
 
 $show_edit_message = 0; // Показывать ли сообщение после редактирования странице в админзоне
 
-$site = "http://oksanalenta.my/";
+$site = "http://teplo.my/";
 
 $dop_query = " && recc!=1 && tmp!=1 && page_show=1 ";
 
@@ -57,12 +56,16 @@ $orders_folders = array();
 $orders_folders[] = "orders";
 
 $goo_folders = array();
-$goo_folders[] = "alisa_goo";
+//$goo_folders[] = "alisa_goo";
 
 
 $mytemplate = "tmpl-1";
 
 $new_goods = "items/newgoods";
 
-$usersOnPageLimit = 15;
+$usersOnPageLimit = 20;
+
+$SMSSender = "on";
+
+$smsPrice = 0.28;
 ?>

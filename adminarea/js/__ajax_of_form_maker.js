@@ -1,6 +1,22 @@
 //var __ajax_url = "__ajax_of_form_maker.php";
 var delete_field = -1;
 //******************************
+function __aofm_getItemTeplate(prmKey, tId, value){
+	var paction = "paction=get_field_template&tid="+tId+"&prmkey="+prmKey+"&value="+value;
+	//alert(paction);
+	$.ajax({
+		type: "POST",
+		url: "__ajax_of_form_maker.php",
+		data: paction,
+		success: function(html) {
+			//alert(html);
+			$("#tmp_content").empty();
+			$("#tmp_content").append(html);
+			$("#DBManager").css("display","none");
+		}
+	});
+}
+//******************************
 function __aofm_removeEvent(prmKey){
 	var str = "eventArray_"+prmKey+"['"+(document.getElementById("5_prm_"+prmKey).value)+"']";
 	eval("delete "+str);
@@ -56,29 +72,25 @@ function get_template(tid){
 			//alert(html);
 			$("#tmp_content").empty();
 			$("#tmp_content").append(html);
+			$("#DBManager").css("display","none");
 			$( "#myitems_sortable" ).sortable();
 			$( "#myitems_sortable" ).disableSelection();
 			//*****
 			$( ".div_myitemname" ).click(function () {
-				var ids = $('#myitems_sortable').sortable('toArray');
-				//alert(this.id);
-				for(i=0; i<ids.length; i++){
-					$( "#s"+ids[i] ).css("height", "22");
-					$( "#ss"+ids[i] ).css("display", "none");
-				}
-				//vvar = 
-				//alert(priors);
-				$( "#s"+this.id ).css("display", "");
-				$( this ).css("height", "100");
+				__aofm_getItemTeplate(this.id.replace(/^sprm_/, ''), tid);
 			});
 		}
 	});
 }
 //******************************
-function save_code(){
-	//alert(create_code());
-	//alert(create_code());
-	var paction = "paction=save_template&tid="+document.getElementById("folder_item_type").value+"&code="+create_code();
+function save_code(index){
+	var dId = document.getElementById("tmp_content").firstChild.id;
+	var num = dId.replace(/sprm_/, "");
+	//alert(create_code_2(dId, num));
+	var paction = "paction=save_template_2&tid="+document.getElementById("folder_item_type").value;
+	paction += "&index="+index+"&code="+create_code_2(dId, num);
+	//alert('paction='+paction);
+	//return false;
 	$.ajax({
 		type: "POST",
 		url: "__ajax_of_form_maker.php",
@@ -90,12 +102,71 @@ function save_code(){
 	});
 }
 //******************************
+function create_code_2(dId, num){
+	//alert(dId+"::"+num);
+	var index = document.getElementById('0_prm_'+num).value;
+	var ret = "";
+	if(index == "inputtext"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+		ret += document.getElementById('1_prm_'+num).value+"===";
+		ret += document.getElementById('1_prm_'+num).value+"===";
+		ret += document.getElementById('2_prm_'+num).value+"===";
+		ret += document.getElementById('3_prm_'+num).value;
+	}
+	//*****************
+	if(index == "pricedigit"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+	}
+	//*****************
+	if(index == "saveblock"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+	}
+	//*****************
+	if(index == "parent"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+	}
+	//*****************
+	if(index == "images"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+	}
+	//*****************
+	if(index == "coder"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+	}
+	//*****************
+	if(index == "textarea"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+	}
+	//*****************
+	if(index == "selectfromitems"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+		ret += document.getElementById('1_prm_'+num).value+"===";
+		ret += document.getElementById('1_prm_'+num).value+"===";
+		ret += document.getElementById('2_prm_'+num).value+"===";
+		ret += document.getElementById('3_prm_'+num).value+"===";
+		ret += document.getElementById('4_prm_'+num).value+"===";
+		ret += document.getElementById('5_prm_'+num).value+"===";
+	}
+	//*****************
+	if(index == "inputcheckbox"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+		ret += document.getElementById('1_prm_'+num).value+"===";
+		ret += document.getElementById('1_prm_'+num).value+"===";
+		ret += document.getElementById('2_prm_'+num).value;
+	}
+	//*****************
+	//alert(ret);
+	return ret;
+}
+//******************************
 function create_code(){
 	//alert("ok");
-	var ids = $('#myitems_sortable').sortable('toArray');
+	var ids = $('#tmp_content').sortable('toArray');
 	//alert(this.id);
 	ret = "";
-	//alert(ids);
+	//alert('OK '+ids.length);
+	//alert(JSON.stringify(ids));
+	//return false;
 	for(i=0; i<ids.length; i++){
 		if(i!=delete_field) {
 			ret += $( "#0_"+ids[i] ).val() + "===";
@@ -161,8 +232,8 @@ function create_code(){
 	return ret;
 }
 //******************************
-function get_template_fields(tval){
-	alert("ok "+tval);
+function get_template_fields(tval, key, index){
+	alert("ok "+tval+" :: "+key+" :: "+index);
 	//if(tval == "inputtext"){
 	//	$.ajax({
 	//	type: "POST",
@@ -175,12 +246,31 @@ function get_template_fields(tval){
 	//}
 }
 //******************************
-function delete_fm_field(fid){
-	var ids = $('#myitems_sortable').sortable('toArray');
-	if (confirm("Удалить поле "+$( "#0_"+ids[fid] ).val()+"?")) {
-		delete_field = fid;
-		save_code();
+function delete_fm_field(key, id){
+	//alert(key+"::"+id);
+	if (confirm("Удалить это поле \""+$( "#0_prm_"+key ).val()+"\"?")) {
+		$.ajax({
+			type: "POST",
+			url: "__ajax_of_form_maker.php",
+			data: "paction=delete_item_from_teplate&key="+key+"&id="+id,
+			success: function(html) {
+				//alert(html);
+				get_template(document.getElementById("folder_item_type").value);
+			}
+		});
 	}
+}
+//******************************
+function __aofm_addItemToTeplate(type){
+	$.ajax({
+		type: "POST",
+		url: "__ajax_of_form_maker.php",
+		data: "paction=add_item_to_teplate&tid="+document.getElementById("folder_item_type").value+"&type="+type,
+		success: function(html) {
+			//alert(html);
+			get_template(document.getElementById("folder_item_type").value);
+		}
+	});
 }
 //******************************
 function insert_inputcheckbox(){
@@ -195,12 +285,8 @@ function insert_inputcheckbox(){
 	});
 }
 //******************************
-function cancel_field(){
-	var ids = $('#myitems_sortable').sortable('toArray');
-	for(i=0; i<ids.length; i++){
-		$( "#s"+ids[i] ).css("height", "22");
-		$( "#ss"+ids[i] ).css("display", "none");
-	}
+function cancel_field(tid){
+	get_template(tid);
 }
 //******************************
 function add_type(){
@@ -215,6 +301,7 @@ function add_type(){
 	html += "</div></div>";
 	$("#tmp_content").empty();
 	$("#tmp_content").append(html);
+	$("#DBManager").css("display","none");
 }
 //******************************
 function save_newtype(){
@@ -250,7 +337,75 @@ function toggle_filter(tgid){
 	save_code();
 }
 //******************************
-
+function __aofm_editDatabase(){
+	$.ajax({
+		type: "POST",
+		url: "__ajax_of_form_maker.php",
+		data: "paction=get_database",
+		success: function(html) {
+			//alert(html);
+			$("#tmp_content").empty();
+			$("#tmp_content").append(html);
+			$("#DBManager").css("display","");
+			
+			//get_template(document.getElementById("folder_item_type").value);
+		}
+	});
+}
+//******************************
+function __aofm_addToDatabase(){
+	var inner = "<div style=\"background-color:#FFFFFF;padding:10px;\"><h2>Добавить поле в базу</h2>";
+	inner += "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" width=\"100%\">";
+	
+	inner += "<tr><td height=\"40\" width=\"250\">Название (латинское)</td><td>";
+	inner += "<input id=\"newField_0\" type=\"text\" style=\"height:30px;width:250px;\" /></td></tr>";
+	
+	inner += "<tr><td height=\"40\" width=\"250\">Тип</td><td>";
+	inner += "<select id=\"newField_1\" style=\"height:30px;width:250px;\">";
+	inner += "<option value=\"text\">текст</option><option value=\"int\">число</option>";
+	inner += "<option value=\"double\">число с запятой</option><select>";
+	inner += "</td></tr>";
+	
+	inner += "<tr><td height=\"40\" width=\"250\">Длина</td><td>";
+	inner += "<input id=\"newField_2\" type=\"number\" min=\"1\" max=\"255\" value=\"1\" style=\"height:30px;width:250px;\" /></td></tr>";
+	
+	inner += "<tr><td height=\"40\" width=\"250\">Значение по умолчанию</td><td>";
+	inner += "<input id=\"newField_3\" type=\"text\" style=\"height:30px;width:250px;\" value=\"0\" /></td></tr>";
+	
+	inner += "<tr><td height=\"40\" width=\"250\">&nbsp;</td><td>";
+	inner += "<button onClick=\"__aofm_addFlieldToDatabase()\">Сохранить</button>&nbsp;&nbsp;";
+	inner += "<button onClick=\"__aofm_editDatabase()\">Отменить</button></td></tr>";
+	
+	inner += "</table>";
+	inner += "</div>";
+	$("#tmp_content").empty();
+	$("#tmp_content").append(inner);
+	$("#DBManager").css("display","");
+}
+//******************************
+function __aofm_addFlieldToDatabase(){
+	var paction = "paction=add_field_to_database";
+	paction += "&name="+$("#newField_0").val();
+	paction += "&type="+$("#newField_1").val();
+	paction += "&length="+$("#newField_2").val();
+	paction += "&default="+$("#newField_3").val();
+	//alert(paction);
+	$.ajax({
+		type: "POST",
+		url: "__ajax_of_form_maker.php",
+		data: paction,
+		success: function(html) {
+			if(html.match(/Произошла ошибка/gi)){
+				alert(html);
+			}else{
+				__aofm_editDatabase();
+			}
+			$("#DBManager").css("display","");
+			
+			//get_template(document.getElementById("folder_item_type").value);
+		}
+	});
+}
 //******************************
 
 //******************************

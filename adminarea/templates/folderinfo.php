@@ -443,6 +443,14 @@ if($id=='0'){ ?>
 			<td class="tdGlobalSettings" width=""><a href="javascript:get_fast_order_cont()">Изменить</a></td>
 			<td class="tdGlobalSettings">&nbsp;</td>
 		</tr>
+		<tr>
+			<?  $restrResp = mysql_query("select * from pages where name='offert' ");
+			$restsRow = mysql_fetch_assoc($restrResp); 
+			//print_r($restsRow); ?>
+			<td class="tdGlobalSettings" width="300">Активировать пользовательское соглашение</td>
+			<td class="tdGlobalSettings" width=""><input type="checkbox" id="offertOnOff_id" onclick="offertOnOff()" <? if($restsRow['cont']=='1') echo " checked "; ?> /> <a href="javascript:get_fast_offert_cont()">Изменить</a></td>
+			<td class="tdGlobalSettings">&nbsp;</td>
+		</tr>
 	</table></div>
 <? } ?>
 <script>
