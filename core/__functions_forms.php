@@ -1048,7 +1048,7 @@ function __ff_get_numfield_fields( $field, $key ){
 	return $ret;
 }
 //**********************************************
-function __ff_get_double_fields( $field, $key ){
+function __ff_get_double_fields( $field, $key, $id ){
 	$ret  = "<select name=\"fm_fields\" id=\"1_prm_$key\">";
 	$ret .= "	<option value=\"0\" "; 
 	if($selected=="0") $ret .= " selected "; 
@@ -1058,11 +1058,15 @@ function __ff_get_double_fields( $field, $key ){
 	$resp = mysql_query($query);
 	while($row=mysql_fetch_assoc($resp)){
 		//print_r($row);
-		if(preg_match("/double/", $row["Type"])){
+		//if(preg_match("/double/", $row["Type"])){
+		if(  (preg_match("/double/", $row["Type"]) && __ff_test_for_use($id, $row['Field'])) ||  
+		(preg_match("/double/", $row["Type"]) && $field == $row["Field"] )  ){
 			//$ret .= "$row[Type] ";
-			$ret .= "<option value=\"$row[Field]\" ";
-			if($row["Field"]==$field)  $ret .= " selected ";
-			$ret .= ">$row[Field]</option>";
+			if(  $row["Field"] != "pricedigit"  ){
+				$ret .= "<option value=\"$row[Field]\" ";
+				if($row["Field"]==$field)  $ret .= " selected ";
+				$ret .= ">$row[Field]</option>";
+			}
 		}
 	}
 	$ret .= "</select>\n";

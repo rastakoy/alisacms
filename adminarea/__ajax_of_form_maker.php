@@ -194,7 +194,7 @@ function inside_item_2($key, $vmass, $typesmass, $typesmass_comment, $id){
 									if($vmass[0] == "number")
 										echo __ff_get_numfield_fields($vmass[1], $key);
 									if($vmass[0] == "double")
-										echo __ff_get_double_fields($vmass[1], $key);
+										echo __ff_get_double_fields($vmass[1], $key, $id );
 									if($vmass[0] == "inputcheckbox")
 										echo __ff_get_checkbox_fields($vmass[1], $key);
 									if($vmass[0] == "selectrectofolder")

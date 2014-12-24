@@ -155,6 +155,13 @@ function create_code_2(dId, num){
 		ret += document.getElementById('2_prm_'+num).value;
 	}
 	//*****************
+	if(index == "double"){
+		ret += document.getElementById('0_prm_'+num).value+"===";
+		ret += document.getElementById('1_prm_'+num).value+"===";
+		ret += document.getElementById('1_prm_'+num).value+"===";
+		ret += document.getElementById('2_prm_'+num).value;
+	}
+	//*****************
 	//alert(ret);
 	return ret;
 }
