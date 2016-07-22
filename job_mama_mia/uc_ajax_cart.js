@@ -402,6 +402,7 @@ function getOffsetRect(elem) {
 }
 function ajaxCartUpdateBlockCartBefore(objId){
 	var width = document.body.clientWidth;
+	consile.log("width = "+width);
 	if(width<=760){
 		var obj = document.getElementById("buy-btn-"+objId);
 		if(obj){

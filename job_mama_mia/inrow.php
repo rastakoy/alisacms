@@ -141,7 +141,7 @@ print ('<div class="attr-hidden">
   </div> 
   <!-- ссылка купить --> 
   <div class="buy-btn" id="buy-btn-'.$data->nid.'"> 
-  <a href="http://mamamia-pizza.ru/cart/add/p'.$data->nid.'_a2o3_q0?destination=adding.php" target="adding" onclick="setTimeout(ajaxCartUpdateBlockCart, 500); setTimeout(ajaxCartUpdateBlockCart, 500); setTimeout(ajaxCartUpdateBlockCart, 1000); setTimeout(ajaxCartUpdateBlockCart, 4000);" class="addtocart">+</a> 
+  <a href="http://mamamia-pizza.ru/cart/add/p'.$data->nid.'_a2o3_q0?destination=adding.php" target="adding" onclick="ajaxCartUpdateBlockCartBefore(\''.$data->nid.'\'); setTimeout(ajaxCartUpdateBlockCart, 500); setTimeout(ajaxCartUpdateBlockCart, 500); setTimeout(ajaxCartUpdateBlockCart, 1000); setTimeout(ajaxCartUpdateBlockCart, 4000);" class="addtocart">+</a> 
   </div> 
   <!-- цена итого --> 
   <div class="show-price"> 
