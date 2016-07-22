@@ -57,7 +57,7 @@
                                 <?php if ($item['item']->taxonomy_catalog['und'][0]['tid'] == 15) : ?>
                                     <td width="80"><img src="<?=$imgG[$atr[2]] ?>" style="width:90%;"></td>
                                     <td width="100">
-									<?php else :?>
+                                    <?php else : ?>
                                     <td colspan="2" style="width:100%;">
                                         <?php endif; ?>
                                     <p class="title" style="margin: 0 0 5px 0;font-weight: bold;"><?php print strip_tags($item['title']); ?></p>
@@ -100,3 +100,16 @@
         </tbody>
     </table>
 </div>
+<script>
+if(document.getElementById("adaptive-bascket")){
+	var obj = document.getElementsByClassName("cart-block-summary-total")[0];
+	if(obj){
+		var text = obj.innerHTML.split(">")[2].replace(/ .*$/, '');
+		//console.log("text = "+text);
+		if(document.getElementById("adaptive-bascket-sum")){
+			document.getElementById("adaptive-bascket-sum").innerHTML = text;
+		}
+	}
+	document.getElementById("adaptive-bascket").style.display = "";
+}
+</script>

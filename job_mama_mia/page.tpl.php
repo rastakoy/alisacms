@@ -27,6 +27,7 @@
                 </div>		
             </div>
             <div class="kayma-left"></div>
+			<div id="adaptive-bascket" class="adaptive-bascket" onclick="showAdaptiveBasket()" style="display:none;"><span id="adaptive-bascket-sum">&nbsp;</span> Р</div>
             <div class="top-left-block">
                 
                 <div class="delivery-bg"></div>
@@ -58,6 +59,7 @@
                 <div id="header-menu">
                     <?php print render($page['header-menu']) ?>
                 </div>
+				<div style="clear:both;"></div>
                 <?php } ?>
             <div class="right-pizza"></div>
 
@@ -83,7 +85,7 @@
 
                     <?php print render($title_prefix); ?>
                     <?php if ($title): ?>
-					<? if ($_SERVER['REQUEST_URI'] != '/shema-stolov') {?>
+                      <? if ($_SERVER['REQUEST_URI'] != '/shema-stolov') {?>
                         <h1 id="content-title">
                             <?php print $title; ?>
                         </h1>
